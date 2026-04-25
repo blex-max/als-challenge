@@ -1,0 +1,23 @@
+[build-system]
+requires = ["scikit-build-core>=0.10", "pybind11>=3.0", "pybind11_stubgen"]
+build-backend = "scikit_build_core.build"
+
+# TODO maybe expand on the description
+[project]
+name = "cfextract"
+version = "0.0.0"
+description = "cfextract - cfDNA analysis toolkit with scalable performant core"
+requires-python = ">=3.12"
+
+[tool.scikit-build]
+cmake.build-type = "Release"
+wheel.packages = []
+
+[tool.scikit-build.cmake.define]
+MAKE_PY = "ON"
+MAKE_TEST = "OFF"
+
+# if htslib cannot be found automatically,
+# the user may pass the include directory
+# and library path to the cmake at the
+# pip install call.
