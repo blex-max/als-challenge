@@ -95,6 +95,7 @@ add_library(cfex-core-shared OBJECT
   src/core/extract.cpp
   src/core/features.cpp
 )
+set_target_properties(cfex-core-shared PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(cfex-core-shared PUBLIC
   src
 )
