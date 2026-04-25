@@ -90,7 +90,7 @@ if(ENABLE_DEBUG_FLAGS)
 endif()
 
 
-add_library(cfex-core-shared STATIC
+add_library(cfex-core-shared OBJECT
   src/core/access.cpp
   src/core/extract.cpp
   src/core/features.cpp
