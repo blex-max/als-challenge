@@ -86,11 +86,38 @@ cmake -B /tmp/cfextract-build -DMAKE_TEST=ON -DMAKE_PY=OFF
 cmake --build /tmp/cfextract-build --parallel
 /tmp/cfextract-build/test-cfextract \
   --reporter console \
-  --reporter junit::out=test-results.xml \
-  --allow-running-no-tests
+  --reporter junit::out=test-results.xml
 ```
 
 These are the same steps run by the CI (`commit_checks` / `merge_checks` jobs in `.github/workflows/ci.yml`).
+
+---
+
+## CI
+
+Three jobs in `.github/workflows/ci.yml`:
+
+| Job | Trigger |
+|---|---|
+| `commit_checks` | Push to any non-main branch; pull requests |
+| `merge_checks` | Push to `main` |
+| `release` | Tag push — builds and pushes Docker image to GHCR |
+
+All three jobs can also be triggered manually via `workflow_dispatch`. To trigger and watch a run from the terminal (requires the [GitHub CLI](https://cli.github.com/)):
+
+```bash
+# Trigger — dispatches from whichever branch/ref you specify
+gh workflow run CI --ref main
+
+# Watch the latest run live
+gh run watch
+
+# Or pick a specific run
+gh run list
+gh run watch <run-id>
+```
+
+Dispatching from `main` runs `merge_checks`; dispatching from any other branch runs `commit_checks`. The `release` job also runs on dispatch (build only — no push to GHCR).
 
 ---
 
@@ -163,7 +190,7 @@ End-motif frequencies alone give ~0.59 accuracy / 0.57 macro F1 in LOO-CV — ro
 
 ## Scalability notes
 
-- **Histogram-based extraction** — `RegionMetrics` stores fragment lengths and genomic positions as `unordered_map` histograms (length → count, binned position → count), not raw per-read vectors. Memory is O(distinct bins), not O(reads). Fragment lengths are bounded (~0–1000 bins); positions on chr21 with 1 kb bins give ~48 000 bins.
 - **Streaming reads** — the C++ extraction loop processes one read at a time with constant auxiliary memory; no read list is ever materialised.
+- **Planned: histogram-based extraction** — planned fields (fragment length, genomic position) will be stored as `unordered_map` histograms (value → count), not raw per-read vectors. Memory will be O(distinct bins), not O(reads). Fragment lengths are bounded (~0–1000 bins); positions on chr21 with 1 kb bins give ~48 000 bins.
 - **Future: regional parallelism** — the natural scale-up is one thread per genomic region, with `RegionMetrics` instances merged after. The histogram types support merge by simple key-wise addition.
 - **Future: multi-sample parallelism** — samples are independent; the manifest loop in `__main__.py` can be parallelised with `concurrent.futures.ProcessPoolExecutor` once the feature set is stable.
