@@ -32,7 +32,7 @@ jobs:
       - name: Build C++ tests
         run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
       - name: Run C++ tests
-        run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml --allow-running-no-tests
+        run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml
       - name: Publish test results
         if: always()
         uses: dorny/test-reporter@v1
@@ -72,7 +72,7 @@ jobs:
       - name: Build C++ tests
         run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
       - name: Run C++ tests
-        run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml --allow-running-no-tests
+        run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml
       - name: Publish test results
         if: always()
         uses: dorny/test-reporter@v1

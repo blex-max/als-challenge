@@ -1,10 +1,12 @@
-from __future__ import annotations
-
 import argparse
 import csv
-import sys
 from pathlib import Path
 
+import cfextract
+
+from cfanalysis.classify import build_feature_matrix, run_loo_cv
+from cfanalysis.features import metrics_to_features
+from cfanalysis.plots import plot_end_motifs
 from cfanalysis.types import Sample
 
 
@@ -34,17 +36,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    try:
-        import cfextract
-    except ImportError:
-        sys.exit(
-            "cfextract not found. Build it first:\n"
-            "  cd build && cmake --build . --target cfextract"
-        )
-
-    from cfanalysis.classify import build_feature_matrix, run_loo_cv
-    from cfanalysis.features import metrics_to_features
-    from cfanalysis.plots import plot_end_motifs
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
