@@ -72,11 +72,10 @@ There are no Python-level tests yet; the test infrastructure is C++-only.
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`), three jobs:
+GitHub Actions (`.github/workflows/ci.yml`), two jobs:
 
-- **`commit_checks`** — feature branch pushes and PRs: lint, type check, complexity, C++ build + tests
-- **`merge_checks`** — `main` branch pushes: same checks; JUnit test results uploaded as artifact
-- **`release`** — tags: Docker build and push to GHCR (`ghcr.io/<repo>:<tag>` and `:latest`)
+- **`checks`** — all non-tag events (pushes, PRs, manual dispatch): lint, type check, complexity, C++ build + tests; JUnit test results uploaded as artifact
+- **`docker_build_push`** — tag pushes: builds and pushes Docker image to GHCR (`ghcr.io/<repo>:<tag>` and `:latest`); also runs on manual dispatch (build only, no push)
 
 Test results are published to GitHub Checks via `dorny/test-reporter` (JUnit XML from Catch2).
 

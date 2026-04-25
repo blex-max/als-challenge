@@ -89,21 +89,20 @@ cmake --build /tmp/cfextract-build --parallel
   --reporter junit::out=test-results.xml
 ```
 
-These are the same steps run by the CI (`commit_checks` / `merge_checks` jobs in `.github/workflows/ci.yml`).
+These are the same steps run by the CI (`checks` job in `.github/workflows/ci.yml`).
 
 ---
 
 ## CI
 
-Three jobs in `.github/workflows/ci.yml`:
+Two jobs in `.github/workflows/ci.yml`:
 
 | Job | Trigger |
 |---|---|
-| `commit_checks` | Push to any non-main branch; pull requests |
-| `merge_checks` | Push to `main` |
-| `release` | Tag push — builds and pushes Docker image to GHCR |
+| `checks` | All non-tag pushes and pull requests |
+| `docker_build_push` | Tag push — builds and pushes Docker image to GHCR |
 
-All three jobs can also be triggered manually via `workflow_dispatch`. To trigger and watch a run from the terminal (requires the [GitHub CLI](https://cli.github.com/)):
+Both jobs can also be triggered manually via `workflow_dispatch`. To trigger and watch a run from the terminal (requires the [GitHub CLI](https://cli.github.com/)):
 
 ```bash
 # Trigger — dispatches from whichever branch/ref you specify
@@ -117,7 +116,7 @@ gh run list
 gh run watch <run-id>
 ```
 
-Dispatching from `main` runs `merge_checks`; dispatching from any other branch runs `commit_checks`. The `release` job also runs on dispatch (build only — no push to GHCR).
+`docker_build_push` also runs on manual dispatch (build only — no push to GHCR).
 
 ---
 
