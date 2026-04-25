@@ -1,23 +1,50 @@
+# If htslib cannot be found automatically via pkg-config, pass the paths:
+#   pip install . -C cmake.define.HTSLIB_INCLUDE_DIR=/path/to/include \
+#                 -C cmake.define.HTSLIB_LIBRARY=/path/to/libhts.a
+
 [build-system]
 requires = ["scikit-build-core>=0.10", "pybind11>=3.0", "pybind11_stubgen"]
 build-backend = "scikit_build_core.build"
 
-# TODO maybe expand on the description
 [project]
 name = "cfextract"
 version = "0.0.0"
-description = "cfextract - cfDNA analysis toolkit with scalable performant core"
+description = "cfDNA analysis toolkit — performant C++ core with Python analysis layer"
 requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.0",
+  "scikit-learn>=1.5",
+  "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+dev = ["basedpyright", "ruff", "lizard"]
+
+[project.scripts]
+cfanalysis = "cfanalysis.__main__:main"
 
 [tool.scikit-build]
 cmake.build-type = "Release"
-wheel.packages = []
+wheel.packages = ["cfanalysis"]
 
 [tool.scikit-build.cmake.define]
 MAKE_PY = "ON"
 MAKE_TEST = "OFF"
 
-# if htslib cannot be found automatically,
-# the user may pass the include directory
-# and library path to the cmake at the
-# pip install call.
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.basedpyright]
+reportUnusedCallResult = "none"
+reportAny = "none"
+reportExplicitAny = "none"
+reportImplicitStringConcatenation = "none"
+# sklearn ships no type stubs; suppress the cascade of unknown-type warnings it causes
+reportMissingTypeStubs = "none"
+reportUnknownVariableType = "none"
+reportUnknownMemberType = "none"
+reportUnknownArgumentType = "none"
