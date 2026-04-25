@@ -32,17 +32,17 @@ jobs:
       - name: Build C++ tests
         run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
       - name: Run C++ tests
+        id: cpp_tests
         run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml
       - name: Publish test results
-        if: always()
+        if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: dorny/test-reporter@v1
         with:
           name: C++ Tests (commit)
           path: test-results.xml
           reporter: java-junit
-          fail-on-error: 'false'
       - name: Upload test results
-        if: always()
+        if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: actions/upload-artifact@v4
         with:
           name: test-results-commit
@@ -73,17 +73,17 @@ jobs:
       - name: Build C++ tests
         run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
       - name: Run C++ tests
+        id: cpp_tests
         run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml
       - name: Publish test results
-        if: always()
+        if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: dorny/test-reporter@v1
         with:
           name: C++ Tests (merge)
           path: test-results.xml
           reporter: java-junit
-          fail-on-error: 'false'
       - name: Upload test results
-        if: always()
+        if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: actions/upload-artifact@v4
         with:
           name: test-results-merge

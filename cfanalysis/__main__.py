@@ -36,7 +36,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = Path(args.manifest)
