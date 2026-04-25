@@ -7,11 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  commit_checks:
-    if: |
-      github.event_name == 'pull_request' ||
-      (github.event_name == 'push' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/')) ||
-      (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main')
+  checks:
+    if: "!startsWith(github.ref, 'refs/tags/')"
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -40,59 +37,18 @@ jobs:
         if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: dorny/test-reporter@v1
         with:
-          name: C++ Tests (commit)
+          name: C++ Tests
           path: test-results.xml
           reporter: java-junit
       - name: Upload test results
         if: always() && steps.cpp_tests.conclusion != 'skipped'
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-commit
+          name: test-results
           path: test-results.xml
           retention-days: 7
 
-  merge_checks:
-    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
-      - name: Install system deps
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq cmake ninja-build build-essential pkg-config libhts-dev
-      - name: Install Python deps
-        run: pip install -e ".[dev]"
-      - run: ruff check cfanalysis
-      - run: ruff format --check cfanalysis
-      - run: python -m basedpyright cfanalysis
-      - name: Complexity check (lizard)
-        run: lizard src/ cfanalysis/ --CCN 10 --warnings_only -i -1
-      - name: Build C++ tests
-        run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
-      - name: Run C++ tests
-        id: cpp_tests
-        run: ./build/test-cfextract --reporter console --reporter junit::out=test-results.xml
-      - name: Publish test results
-        if: always() && steps.cpp_tests.conclusion != 'skipped'
-        uses: dorny/test-reporter@v1
-        with:
-          name: C++ Tests (merge)
-          path: test-results.xml
-          reporter: java-junit
-      - name: Upload test results
-        if: always() && steps.cpp_tests.conclusion != 'skipped'
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-merge
-          path: test-results.xml
-          retention-days: 7
-
-  release:
+  docker_build_push:
     if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
