@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["basedpyright", "ruff", "lizard"]
+dev = ["basedpyright", "ruff", "lizard", "mkdocs-material"]
 
 [project.scripts]
 cfanalysis = "cfanalysis.__main__:main"

@@ -1,5 +1,24 @@
 #include "features.hpp"
 
+#include <algorithm>
+
+
+namespace {
+
+char
+complement (char c) noexcept
+{
+  switch (c) {
+    case 'A': return 'T';
+    case 'T': return 'A';
+    case 'C': return 'G';
+    case 'G': return 'C';
+    default:  return 'N';
+  }
+}
+
+}
+
 
 namespace feature_extractors {
 
@@ -10,13 +29,15 @@ get_end_motif
   std::string motif;
 
   const auto bseq = bam_get_seq (b);
+  const auto seq_len = static_cast<size_t> (b->core.l_qseq);
 
   if (b->core.flag & BAM_FREVERSE) {
-    // does the motif need to be reverse complemented?
-    // is the reverse complement of the motif to be treated as degenerate?
-    const auto seq_len = b->core.l_qseq;
     for (size_t i = seq_len - motif_sz; i < seq_len; ++i) {
       motif.push_back (seq_nt16_str[bam_seqi(bseq, i)]);
+    }
+    std::reverse (motif.begin(), motif.end());
+    for (char& c : motif) {
+      c = complement (c);
     }
   }
   else {

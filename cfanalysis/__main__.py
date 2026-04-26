@@ -1,12 +1,19 @@
 import argparse
 import csv
+import time
 from pathlib import Path
 
 import cfextract
+import matplotlib.pyplot as plt
 
-from cfanalysis.classify import build_feature_matrix, run_loo_cv
+from cfanalysis.classify import run_loo_cv
 from cfanalysis.features import metrics_to_features
-from cfanalysis.plots import plot_end_motifs
+from cfanalysis.plots import (
+    plot_end_motifs,
+    plot_frag_lengths,
+    plot_methylation,
+    plot_position_dist,
+)
 from cfanalysis.types import Sample
 
 
@@ -41,7 +48,6 @@ def main() -> None:
     manifest_path = Path(args.manifest)
     manifest_dir = manifest_path.parent
 
-    # --- Feature extraction ---
     samples: list[Sample] = []
     with open(manifest_path) as f:
         for row in csv.DictReader(f):
@@ -50,7 +56,9 @@ def main() -> None:
                 bam_path = manifest_dir / bam_path
 
             print(f"  {row['sample_id']} ({row['label']}) ...", end=" ", flush=True)
+            t0 = time.perf_counter()
             metrics = cfextract.extract_features(str(bam_path), args.contig)
+            elapsed = time.perf_counter() - t0
             features = metrics_to_features(metrics)
             samples.append(
                 {
@@ -59,21 +67,69 @@ def main() -> None:
                     "features": features,
                 }
             )
-            print("done")
+            print(f"done ({elapsed:.1f}s)")
 
     print(f"\nProcessed {len(samples)} samples.")
 
-    # --- Classification ---
-    X, y, _ = build_feature_matrix(samples, top_n=args.top_motifs)
-    result = run_loo_cv(X, y)
+    summary_fields = [
+        "fl_mean",
+        "fl_std",
+        "fl_frac_subnucleosomal",
+        "fl_frac_nucleosomal",
+        "fl_ratio_mono_di",
+        "methylation_mean",
+        "methylation_entropy",
+        "methylation_frac_high",
+        "methylation_frac_low",
+        "methylation_median",
+    ]
+    summary_path = output_dir / "sample_summary.csv"
+    with open(summary_path, "w", newline="") as f:
+        writer = csv.DictWriter(
+            f, fieldnames=["sample_id", "label"] + summary_fields, extrasaction="ignore"
+        )
+        writer.writeheader()
+        for s in samples:
+            out_row: dict[str, object] = {
+                "sample_id": s["sample_id"],
+                "label": s["label"],
+            }
+            for field in summary_fields:
+                out_row[field] = s["features"].get(field, "")  # type: ignore[literal-required]
+            writer.writerow(out_row)
+    print(f"Saved: {summary_path}")
+
+    result = run_loo_cv(samples, top_n=args.top_motifs)
+
+    report_str = str(result["report"])
+    report_path = output_dir / "classification_report.txt"
+    report_path.write_text(report_str)
+    print(f"Saved: {report_path}")
 
     print("\n--- LOO-CV Classification Report ---")
-    print(result["report"])
+    print(report_str)
 
-    # --- Plot ---
-    fig_path = output_dir / "end_motifs.png"
-    plot_end_motifs(samples, top_n=10, out_path=fig_path)
-    print(f"Saved: {fig_path}")
+    for name, fig in [
+        ("end_motifs.png", plot_end_motifs(samples, top_n=10)),
+        ("frag_lengths.png", plot_frag_lengths(samples)),
+        ("methylation.png", plot_methylation(samples)),
+        (
+            "start_positions.png",
+            plot_position_dist(
+                samples, "start_pos_hist", "Fragment start position distribution"
+            ),
+        ),
+        (
+            "end_positions.png",
+            plot_position_dist(
+                samples, "end_pos_hist", "Fragment end position distribution"
+            ),
+        ),
+    ]:
+        path = output_dir / name
+        fig.savefig(path, dpi=150)
+        plt.close(fig)
+        print(f"Saved: {path}")
 
 
 if __name__ == "__main__":

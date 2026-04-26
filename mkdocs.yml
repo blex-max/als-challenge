@@ -1,0 +1,50 @@
+site_name: ALS cfDNA Analysis
+site_url: https://blex-max.github.io/als-challenge/
+repo_url: https://github.com/blex-max/als-challenge
+repo_name: blex-max/als-challenge
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.annotate
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: .
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Docs:
+      - Architecture: architecture.md
+      - Usage: usage.md
+      - Classification: classification.md
+      - Development: development.md
+  - API Reference:
+      - Python (cfanalysis): api/python.md
+      - C++ (cfextract): api/cpp.md

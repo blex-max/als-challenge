@@ -1,5 +1,6 @@
 scratch/
 build/
+site/
 .DS_Store
 .cache
 **/__pycache__/

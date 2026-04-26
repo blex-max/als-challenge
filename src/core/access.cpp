@@ -14,19 +14,17 @@ open_aln
   AlnFile aln;
 
   aln.f = hts_open (fp.c_str(), "r");
-  if (!aln.f)
+  if (!aln.f) {
     throw std::runtime_error ("failed to open: " + fp.string());
+  }
 
   aln.hdr = sam_hdr_read (aln.f);
   if (!aln.hdr) {
-    hts_close (aln.f);
     throw std::runtime_error ("failed to read header: " + fp.string());
   }
 
   aln.idx = sam_index_load (aln.f, fp.c_str());
   if (!aln.idx) {
-    sam_hdr_destroy (aln.hdr);
-    hts_close (aln.f);
     throw std::runtime_error ("failed to load index: " + fp.string() + " (ensure .bai/.csi exists)");
   }
 

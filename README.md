@@ -18,15 +18,7 @@ cfextract   (C++ / pybind11)
        runs classification, and produces plots.
 ```
 
-The C++ layer returns a `RegionMetrics` object. Currently it carries:
-
-| Field | Type | Description |
-|---|---|---|
-| `end_motifs` | `dict[str, int]` | Count of each 4-mer at the 5′ end of the sequenced fragment |
-
-Planned additions: fragment length histogram, genomic start/end position histograms, CpG methylation counts from the Bismark `XM` tag.
-
-The key extension point on the Python side is `cfanalysis/features.py::metrics_to_features()` — adding a new field to `RegionMetrics` means adding one key there; the rest of the pipeline picks it up automatically.
+The key extension point is `cfanalysis/features.py::metrics_to_features()` — adding a new field to `RegionMetrics` requires one entry there; the rest of the pipeline picks it up automatically. See the [docs site](https://blex-max.github.io/als-challenge/) for the full data model, scalability analysis, and design rationale.
 
 ---
 
@@ -153,22 +145,40 @@ Options:
 
 ### Output
 
-- **stdout** — LOO-CV classification report (precision, recall, F1 per class)
-- **`results/end_motifs.png`** — Grouped bar chart of top end-motif frequencies, ALS vs CTRL
+| File | Description |
+|---|---|
+| `classification_report.txt` | LOO-CV precision / recall / F1 per class |
+| `sample_summary.csv` | Per-sample scalar statistics (FL mean/std/short fraction, methylation mean/var/high fraction) |
+| `end_motifs.png` | Grouped bar chart of top end-motif frequencies, ALS vs CTRL |
+| `frag_lengths.png` | Mean ± SEM fragment length distribution per group (0–600 bp) |
+| `methylation.png` | Bar chart of mean CpG methylation rate per group with individual sample points |
+| `start_positions.png` | Fragment start position distribution per group (100 kbp bins) |
+| `end_positions.png` | Fragment end position distribution per group (100 kbp bins) |
 
 ---
 
 ## Docker
 
+Pull the pre-built image from GHCR:
+
+```bash
+docker pull ghcr.io/blex-max/als-challenge:latest
+```
+
+Or build locally:
+
 ```bash
 docker build -t cfanalysis .
+```
 
-# Mount your data directory and manifest into the container
+Then run, mounting your data (replace `<image>` with `ghcr.io/blex-max/als-challenge:latest` or `cfanalysis`):
+
+```bash
 docker run --rm \
   -v /path/to/bam:/data/bam \
   -v /path/to/manifest.csv:/data/samples.csv \
   -v /path/to/results:/results \
-  cfanalysis --manifest /data/samples.csv --output-dir /results
+  <image> --manifest /data/samples.csv --output-dir /results
 ```
 
 ---
@@ -181,15 +191,11 @@ Full-genome BAMs are ~50 GB per sample; the pipeline is designed to handle this 
 
 ---
 
-## Current results (end motifs only, chr21)
+## Current results (chr21)
 
-End-motif frequencies alone give ~0.59 accuracy / 0.57 macro F1 in LOO-CV — roughly chance. This is expected: bisulfite conversion (C→T in unmethylated contexts) dominates the end-motif spectrum with T/A-rich 4-mers that are similar across all samples. Discriminative signal is expected to increase substantially once fragment length distributions and CpG methylation rates are added.
+LOO-CV with L2 logistic regression (C tuned per fold via inner 5-fold CV) over top-20 end motifs + fragment length statistics + CpG methylation statistics gives **0.64 accuracy / 0.62 macro F1** on the 22-sample cohort (12 ALS, 10 CTRL).
 
----
+Fragment length features — particularly `fl_ratio_mono_di` (mono-nucleosomal / di-nucleosomal count ratio, effect size ~0.89) — carry most of the discriminative signal. CpG methylation features contribute minimally on chr21: the median CpG site is 100% methylated in every sample, and epipolymorphism (entropy) is identical across groups. Removing methylation features raises accuracy to 0.68 / macro F1 0.66 by reducing noise dimensions relative to n=22.
 
-## Scalability notes
+chr21 represents ~1.5% of the autosomal genome and contains no known ALS-associated differentially methylated regions. Performance is expected to increase substantially on full-genome BAMs.
 
-- **Streaming reads** — the C++ extraction loop processes one read at a time with constant auxiliary memory; no read list is ever materialised.
-- **Planned: histogram-based extraction** — planned fields (fragment length, genomic position) will be stored as `unordered_map` histograms (value → count), not raw per-read vectors. Memory will be O(distinct bins), not O(reads). Fragment lengths are bounded (~0–1000 bins); positions on chr21 with 1 kb bins give ~48 000 bins.
-- **Future: regional parallelism** — the natural scale-up is one thread per genomic region, with `RegionMetrics` instances merged after. The histogram types support merge by simple key-wise addition.
-- **Future: multi-sample parallelism** — samples are independent; the manifest loop in `__main__.py` can be parallelised with `concurrent.futures.ProcessPoolExecutor` once the feature set is stable.
