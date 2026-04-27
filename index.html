@@ -744,21 +744,22 @@
 <h2 id="engineering-highlights">Engineering highlights</h2>
 <ul>
 <li><strong>CI on every push</strong> — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment. Analysis includes code complexity/maintainability assessment.</li>
-<li><strong>Portable container</strong> — pre-built image available via package registry (<code>docker pull ghcr.io/blex-max/als-challenge:latest</code>) eliminates end-user build issues; the full pipeline runs reproducibly on any machine with a single pull.</li>
+<li><strong>Portable container</strong> — pre-built image available via package registry (<code>docker pull ghcr.io/blex-max/als-challenge:latest</code>) minimises end-user issues; the full pipeline should run reproducibly on any machine with a single pull.</li>
 <li><strong>Language-agnostic extraction core</strong> — core feature extraction and file I/O are handled in performant cpp. Python bindings are provided out of the box, but analysts can drive analysis from Python, R, Julia, or any language for which bindings can be made, without having to reimplement key functionality.</li>
 <li><strong>Memory scales with region size only, not read depth</strong> — peak footprint is bounded by the number of unique CpG sites in the target region, not read count; a deeply sequenced chr21 BAM uses the same memory as a shallow one, keeping extraction tractable on standard hardware.</li>
-<li><strong>Fast extraction</strong> — <code>cfextract.extract_features()</code> completes chr21 extraction in <strong>0.10 ± 0.00 s</strong> wall time, 5.9 ± 0.3 MB peak RSS across 22 chr21 BAMs (10 M reads per sample, Apple M-series, 3 repeats; reproduce with <code>python scripts/bench_extract.py --repeat 3</code>).</li>
-<li><strong>Deployable model</strong> — the <code>train</code> subcommand fits and persists a final model bundle; <code>predict</code> applies it to new samples without retraining, enabling use and testing beyond the training cohort.</li>
+<li><strong>Fast extraction</strong> — <code>cfextract.extract_features()</code> completes chr21 extraction in <strong>0.10 ± 0.00 s</strong> wall time, 5.9 ± 0.3 MB peak memory usage across 22 chr21 BAMs.</li>
+<li><strong>Multiple Entrypoints</strong> — the <code>train</code> subcommand fits and persists a final model bundle; <code>predict</code> applies it to new samples without retraining, enabling use and testing beyond the training cohort.</li>
 <li><strong>Incremental training</strong> — the <code>update</code> subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.</li>
 <li><strong>Contributor guardrails</strong> — <a href="https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.</li>
 </ul>
 <hr />
 <h2 id="quick-start">Quick start</h2>
-<p>Start by creating a manifest CSV that lists your samples:</p>
+<p>To train the model, start by creating a manifest CSV that lists your samples:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sample_id,bam_path,label
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ALS_001,bams/ALS_001.bam,als
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>CTRL_001,bams/CTRL_001.bam,ctrl
 </span></code></pre></div>
+<p>Simple usage is then as follows:</p>
 <p><strong>Option A — Docker (no local build required)</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/blex-max/als-challenge:latest
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -768,7 +769,7 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/samples.csv:/data/samples.csv<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/results:/results<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span>train<span class="w"> </span>--manifest<span class="w"> </span>/data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>/results
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span>train<span class="w"> </span>--manifest<span class="w"> </span>path/to/manifest.csv<span class="w"> </span>--out-dir<span class="w"> </span>/results
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Predict: classify a new unlabelled sample against the saved model</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
@@ -784,7 +785,7 @@
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>cfclassify<span class="w"> </span>train<span class="w"> </span>--manifest<span class="w"> </span>data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>results/
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>cfclassify<span class="w"> </span>train<span class="w"> </span>--manifest<span class="w"> </span>path/to/manifest.csv<span class="w"> </span>--out-dir<span class="w"> </span>results/
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>cfclassify<span class="w"> </span>predict<span class="w"> </span>--bam<span class="w"> </span>new_patient.bam<span class="w"> </span>--model-path<span class="w"> </span>results/model.pkl<span class="w"> </span>--sample-id<span class="w"> </span>new_patient
 </span></code></pre></div>
 <p>See the <a href="usage/">Usage</a> page for full details.</p>
