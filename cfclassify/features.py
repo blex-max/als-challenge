@@ -2,7 +2,7 @@ import math
 
 import cfextract
 
-from cfanalysis.types import Features
+from cfclassify.types import Features
 
 
 def metrics_to_features(metrics: cfextract.RegionMetrics) -> Features:

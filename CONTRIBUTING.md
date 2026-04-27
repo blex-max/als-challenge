@@ -7,6 +7,9 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"   # builds the C++ extension via scikit-build-core + CMake
 ```
 
+Note that pip installing should autogenerate typing stubs for the CPP core. These
+should not usually need to be edited by hand.
+
 The `.[dev]` extras install: `basedpyright`, `ruff`, `lizard`, `mkdocs-material`.
 
 ---
@@ -18,8 +21,8 @@ All checks must pass before merging. CI runs them automatically on every push an
 ### Lint and format (Python)
 
 ```bash
-ruff check cfanalysis            # PEP8 (E), Pyflakes (F), isort (I)
-ruff format --check cfanalysis   # drop --check to auto-fix
+ruff check cfclassify            # PEP8 (E), Pyflakes (F), isort (I)
+ruff format --check cfclassify   # drop --check to auto-fix
 ```
 
 Line length is 88.
@@ -27,7 +30,7 @@ Line length is 88.
 ### Type checking
 
 ```bash
-python -m basedpyright cfanalysis
+python -m basedpyright cfclassify
 ```
 
 Must produce **0 errors and 0 warnings**. The suppressions in `pyproject.toml` (`reportMissingTypeStubs`, `reportUnknownMemberType`, etc.) are intentional — sklearn ships no type stubs. Do not remove them.
@@ -35,7 +38,7 @@ Must produce **0 errors and 0 warnings**. The suppressions in `pyproject.toml` (
 ### Cyclomatic complexity
 
 ```bash
-lizard src/ cfanalysis/ --CCN 10 --warnings_only -i -1
+lizard src/ cfclassify/ --CCN 10 --warnings_only -i -1
 ```
 
 Threshold is 10 per function. The `-i -1` flag is informational — violations are printed but CI does not fail. New code should conform; document the reason if a function genuinely needs more branches.
@@ -49,8 +52,7 @@ cmake -B /tmp/cfextract-build -DMAKE_TEST=ON -DMAKE_PY=OFF
 cmake --build /tmp/cfextract-build --parallel
 /tmp/cfextract-build/test-cfextract \
   --reporter console \
-  --reporter junit::out=test-results.xml \
-  --allow-running-no-tests
+  --reporter junit::out=test-results.xml
 ```
 
 Tests use [Catch2 v3](https://github.com/catchorg/Catch2), fetched at configure time via CMake `FetchContent`. The build enables `-Wall -Wextra -Wpedantic` and a broad additional warning set — do not suppress compiler warnings to make code compile.
@@ -80,18 +82,18 @@ cfextract   (C++ / pybind11)
 │
 │  ── RegionMetrics boundary ──
 │
-cfanalysis   (pure Python)
-   cfanalysis/types.py      — TypedDict schema (Features, Sample)
-   cfanalysis/features.py   — metrics_to_features() — primary extension point
-   cfanalysis/classify.py   — LOO-CV with inner GridSearchCV
-   cfanalysis/plots.py      — matplotlib figures
-   cfanalysis/__main__.py   — CLI entry point
+cfclassify   (pure Python)
+   cfclassify/types.py      — TypedDict schema (Features, Sample)
+   cfclassify/features.py   — metrics_to_features() — primary extension point
+   cfclassify/classify.py   — LOO-CV with inner GridSearchCV
+   cfclassify/plots.py      — matplotlib figures
+   cfclassify/__main__.py   — CLI entry point
 ```
 
 **Primary extension point**: adding a new feature to the pipeline requires changes to exactly two places:
 
 1. Add a field to `RegionMetrics` in `src/core/extract.hpp` and populate it in `src/core/extract.cpp`.
-2. Add the conversion logic to `cfanalysis/features.py::metrics_to_features()`.
+2. Add the conversion logic to `cfclassify/features.py::metrics_to_features()`.
 
 `build_feature_matrix()` in `classify.py` picks up any flat numeric key automatically — no further changes needed.
 

@@ -15,17 +15,18 @@ dependencies = [
   "numpy>=2.0",
   "scikit-learn>=1.5",
   "matplotlib>=3.9",
+  "joblib>=1.4",
 ]
 
 [project.optional-dependencies]
-dev = ["basedpyright", "ruff", "lizard", "mkdocs-material"]
+dev = ["basedpyright", "ruff", "lizard", "mkdocs-material", "psutil"]
 
 [project.scripts]
-cfanalysis = "cfanalysis.__main__:main"
+cfclassify = "cfclassify.__main__:main"
 
 [tool.scikit-build]
 cmake.build-type = "Release"
-wheel.packages = ["cfanalysis"]
+wheel.packages = ["cfclassify"]
 
 [tool.scikit-build.cmake.define]
 MAKE_PY = "ON"

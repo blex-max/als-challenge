@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from cfanalysis.types import Sample
+from cfclassify.types import Sample
 
 
 def plot_end_motifs(
@@ -87,10 +87,6 @@ def plot_frag_lengths(
         ax.plot(x, mean, label=label.upper(), linewidth=1.2)
         ax.fill_between(x, mean - sem, mean + sem, alpha=0.2)
 
-    ax.axvline(
-        147, color="grey", linestyle="--", linewidth=0.8, label="147 bp (mono-nuc)"
-    )
-    ax.axvline(200, color="silver", linestyle=":", linewidth=0.8, label="200 bp")
     ax.set_xlim(0, 600)
     ax.set_xlabel("Fragment length (bp)")
     ax.set_ylabel("Mean normalised frequency")

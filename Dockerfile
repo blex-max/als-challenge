@@ -29,8 +29,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /usr/local/lib/python3.12/site-packages \
                     /usr/local/lib/python3.12/site-packages
-COPY --from=builder /usr/local/bin/cfanalysis \
-                    /usr/local/bin/cfanalysis
+COPY --from=builder /usr/local/bin/cfclassify \
+                    /usr/local/bin/cfclassify
 
-ENTRYPOINT ["cfanalysis"]
+ENTRYPOINT ["cfclassify"]
 CMD ["--help"]

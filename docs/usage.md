@@ -23,6 +23,35 @@ sudo apt-get install cmake build-essential pkg-config libhts-dev
 
 ## Installation
 
+### Option A — Docker (recommended for reproducibility)
+
+A pre-built image is available on GHCR and bundles all C++ dependencies. No local build is needed.
+
+```bash
+docker pull ghcr.io/blex-max/als-challenge:latest
+```
+
+Run the pipeline with volume mounts:
+
+```bash
+docker run --rm \
+  -v /host/path/to/bams:/data/bams \
+  -v /host/path/to/samples.csv:/data/samples.csv \
+  -v /host/path/to/results:/results \
+  ghcr.io/blex-max/als-challenge:latest \
+  train --manifest /data/samples.csv --out-dir /results
+```
+
+Build locally:
+
+```bash
+docker build -t cfclassify .
+```
+
+### Option B — From source
+
+Before running, prepare a manifest CSV describing your samples — see [Manifest file](#manifest-file) below.
+
 ```bash
 git clone https://github.com/blex-max/als-challenge.git
 cd als-challenge
@@ -31,7 +60,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e .
 ```
 
-`pip install` triggers scikit-build-core, which compiles the C++ extension (`cfextract`) and installs the `cfanalysis` CLI. If `htslib` is not found automatically via `pkg-config`, pass the paths explicitly:
+`pip install` triggers scikit-build-core, which compiles the C++ extension (`cfextract`) and installs the `cfclassify` CLI. If `htslib` is not found automatically via `pkg-config`, pass the paths explicitly:
 
 ```bash
 pip install . \
@@ -39,10 +68,13 @@ pip install . \
   -C cmake.define.HTSLIB_LIBRARY=/path/to/libhts.a
 ```
 
-On macOS with a non-default compiler (e.g. Apple Clang):
+If Homebrew's Clang takes precedence over the system compiler (common on macOS), specify the compiler explicitly:
+
 ```bash
 CC=/usr/bin/clang CXX=/usr/bin/clang++ pip install -e .
 ```
+
+This is typically needed on Apple Silicon Macs where Xcode CLT and Homebrew Clang coexist.
 
 ---
 
@@ -68,55 +100,76 @@ Each BAM file must have an accompanying BAI index at `<bam>.bai` or `<bam>.csi`.
 ## Running
 
 ```bash
-cfanalysis --manifest data/samples.csv --output-dir results/
+cfclassify <subcommand> [options]
 ```
 
-### Options
+Three subcommands are available.
+
+### `train` — Train on a labelled cohort
+
+```bash
+cfclassify train --manifest data/samples.csv --out-dir results/
+```
+
+Runs LOO-CV and writes the evaluation report and plots. Also fits a final model on all samples and saves it to `<out-dir>/model.pkl` alongside a feature cache for use by `update`.
 
 | Flag | Default | Description |
 |---|---|---|
 | `--manifest` | *(required)* | Path to the CSV manifest |
 | `--contig` | `chr21` | Contig name to extract features from (must match BAM header) |
-| `--output-dir` | `.` | Directory for all output files; created if absent |
-| `--top-motifs` | `20` | Number of top-frequency 4-mer end motifs to include as classifier features |
+| `--out-dir` | `.` | Directory for all output files; created if absent |
+| `--motif-length` | `4` | k-mer length for end-motif features; 4^k features used (default 4 → 256) |
 
-### Output files
+Output files:
 
 | File | Description |
 |---|---|
 | `classification_report.txt` | Sklearn LOO-CV classification report (precision, recall, F1 per class) |
 | `sample_summary.csv` | Per-sample scalar statistics (fl_mean, methylation_mean, etc.) |
-| `end_motifs.png` | Grouped bar chart of top-N end-motif frequencies, ALS vs CTRL |
+| `model.pkl` | Trained model bundle (joblib) |
+| `model.pkl.features.json` | Feature cache for `update` |
+| `end_motifs.png` | Grouped bar chart of top-10 end-motif frequencies, ALS vs CTRL |
 | `frag_lengths.png` | Mean ± SEM fragment length distribution (0–600 bp) per group |
 | `methylation.png` | Mean CpG methylation rate per group with individual sample points |
 | `start_positions.png` | Mean read start position distribution across genomic bins |
 | `end_positions.png` | Mean read end position distribution across genomic bins |
 
----
-
-## Docker
-
-A pre-built image is available on GHCR:
+### `predict` — Classify a single unlabelled BAM
 
 ```bash
-docker pull ghcr.io/blex-max/als-challenge:latest
+cfclassify predict \
+  --bam patient_001.bam \
+  --model-path models/als_chr21.pkl \
+  --sample-id patient_001
 ```
 
-Run the pipeline with volume mounts:
+| Flag | Default | Description |
+|---|---|---|
+| `--bam` | *(required)* | Path to the BAM file (must be indexed) |
+| `--model-path` | *(required)* | Path to a saved model bundle |
+| `--sample-id` | `unknown` | Label for progress output |
+
+Prints the predicted class label and probability to stdout. The contig and k-mer length are read from the saved bundle — no separate flags needed.
+
+### `update` — Add a new labelled sample and retrain
 
 ```bash
-docker run --rm \
-  -v /host/path/to/bams:/data/bams \
-  -v /host/path/to/samples.csv:/data/samples.csv \
-  -v /host/path/to/results:/results \
-  ghcr.io/blex-max/als-challenge:latest \
-  --manifest /data/samples.csv \
-  --output-dir /results
+cfclassify update \
+  --bam new_ctrl.bam \
+  --label ctrl \
+  --sample-id CTRL_023 \
+  --model-path models/als_chr21.pkl
 ```
 
-Build locally:
+| Flag | Default | Description |
+|---|---|---|
+| `--bam` | *(required)* | BAM file for the new sample |
+| `--label` | *(required)* | Class label for the new sample |
+| `--sample-id` | *(required)* | Unique identifier |
+| `--model-path` | *(required)* | Path to an existing model bundle |
 
-```bash
-docker build -t cfanalysis .
-```
+Extracts features using the stored contig and k, appends the sample to the feature cache, and retrains the model from scratch on all cached samples. Updates both `<model-path>` and `<model-path>.features.json` in place.
+
+Requires at least 2 samples per class in the cache. Run `train` separately if updated LOO-CV metrics are needed.
+
 

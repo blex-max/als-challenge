@@ -60,7 +60,7 @@ endif()
 # //--- end deps ---//
 
 
-# shared core lib to reduce problem surface
+# shared core lib to reduce maintenance surface
 add_library(common_compile_opts INTERFACE)
 target_compile_options(common_compile_opts INTERFACE
     -Wall
@@ -91,11 +91,12 @@ endif()
 
 
 add_library(cfex-core-shared OBJECT
+  src/core/core.cpp
   src/core/access.cpp
   src/core/extract.cpp
-  src/core/features.cpp
   src/core/stats.cpp
 )
+# must be position independent or bindings fail
 set_target_properties(cfex-core-shared PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(cfex-core-shared PUBLIC
   src
@@ -127,10 +128,9 @@ if(MAKE_TEST)
 endif(MAKE_TEST)
 
 
-# TODO - possibly remove stub generation
-# from install process. It is quite finicky
-# for an interview project and would be a dreadful
-# thing to fail on.
+# stub generation for python type hints.
+# finicky - hence skip on failure rather
+# than exiting.
 if(MAKE_PY)
   set(PYBIND11_FINDPYTHON NEW)
   FetchContent_Declare(

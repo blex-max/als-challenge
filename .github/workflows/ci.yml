@@ -23,11 +23,11 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq cmake ninja-build build-essential pkg-config libhts-dev
       - name: Install Python deps
         run: pip install -e ".[dev]"
-      - run: ruff check cfanalysis
-      - run: ruff format --check cfanalysis
-      - run: python -m basedpyright cfanalysis
+      - run: ruff check cfclassify
+      - run: ruff format --check cfclassify
+      - run: python -m basedpyright cfclassify
       - name: Complexity check (lizard)
-        run: lizard src/ cfanalysis/ --CCN 10 --warnings_only -i -1
+        run: lizard src/ cfclassify/ --CCN 10 --warnings_only -i -1
       - name: Build C++ tests
         run: cmake -B build -G Ninja -DMAKE_TEST=ON && cmake --build build --parallel
       - name: Run C++ tests

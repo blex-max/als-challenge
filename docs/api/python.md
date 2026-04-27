@@ -1,27 +1,56 @@
-# Python API — cfanalysis
+# Python API — cfclassify
 
-All public symbols live in the `cfanalysis` package. Import paths are shown on each entry.
+All public symbols live in the `cfclassify` package. Import paths are shown on each entry.
 
 ---
 
-## Types — `cfanalysis.types`
+## Types — `cfclassify.types`
 
-Two `TypedDict` classes define the data schema flowing through the Python layer.
+Three `TypedDict` classes define the data schema flowing through the Python layer.
 
-```python title="cfanalysis/types.py"
---8<-- "cfanalysis/types.py"
+```python
+class Features(TypedDict, total=False):
+    end_motifs: dict[str, float]         # normalised k-mer frequencies
+    frag_len_hist: list[int]             # 1001-bin histogram (0–1000 bp)
+    fl_mean: float
+    fl_std: float
+    fl_frac_subnucleosomal: float        # fraction < 120 bp
+    fl_frac_nucleosomal: float           # fraction 120–200 bp
+    fl_ratio_mono_di: float              # mono / di-nucleosomal count ratio
+    methylation_mean: float              # coverage-weighted mean
+    methylation_entropy: float           # mean binary entropy across sites
+    methylation_frac_high: float         # fraction of sites with rate > 0.8
+    methylation_frac_low: float          # fraction of sites with rate < 0.1
+    methylation_median: float
+    start_pos_hist: dict[int, int]       # 100 kbp bins, for plotting only
+    end_pos_hist: dict[int, int]
+
+class Sample(TypedDict):
+    sample_id: str
+    label: str
+    features: Features
+
+class ModelBundle(TypedDict):
+    model: LogisticRegression
+    scaler: StandardScaler
+    k: int                    # motif length used during training
+    flat_keys: list[str]      # non-motif feature names, for vector alignment
+    contig: str
+    n_training_samples: int
 ```
 
 **`Features`** is `total=False`: every key is optional. Missing data (e.g. no CpG coverage in a region) is represented by the absence of the corresponding key — not by a `NaN` value. This keeps downstream code honest: a consumer must explicitly handle the absent-key case rather than silently propagating NaN.
 
 **`Sample`** wraps a single processed BAM file.
 
+**`ModelBundle`** holds everything needed to classify a new sample: the fitted model, fitted scaler, k-mer length `k`, the ordered list of non-motif feature names `flat_keys` (for vector alignment at inference time), and the contig and sample count used during training.
+
 ---
 
-## Feature conversion — `cfanalysis.features`
+## Feature conversion — `cfclassify.features`
 
-```python title="cfanalysis/features.py"
---8<-- "cfanalysis/features.py"
+```python
+def metrics_to_features(metrics: cfextract.RegionMetrics) -> Features: ...
 ```
 
 `metrics_to_features()` is the **sole extension point** for adding new features to the pipeline. When a new field is added to `RegionMetrics` on the C++ side:
@@ -32,13 +61,21 @@ Two `TypedDict` classes define the data schema flowing through the Python layer.
 
 ---
 
-## Classification — `cfanalysis.classify`
+## Classification — `cfclassify.classify`
 
-```python title="cfanalysis/classify.py"
---8<-- "cfanalysis/classify.py"
+```python
+def generate_vocabulary(k: int) -> list[str]: ...
+def run_loo_cv(samples: list[Sample], motif_k: int = 4) -> dict[str, object]: ...
+def train_final_model(samples: list[Sample], motif_k: int = 4) -> tuple[...]: ...
+def predict_sample(sample_features: Features, model, scaler, flat_keys, motif_k: int = 4) -> tuple[str, float]: ...
+def build_feature_matrix(samples: list[Sample], motifs: list[str]) -> tuple[...]: ...
 ```
 
-### `run_loo_cv(samples, top_n=20)`
+### `generate_vocabulary(k)`
+
+Returns the full sorted k-mer vocabulary as a `list[str]` with `4^k` entries over `{A, C, G, T}`, generated via `itertools.product`. This is the vocabulary used as classifier features — deterministic from `k` alone, no training data required.
+
+### `run_loo_cv(samples, motif_k=4)`
 
 Runs leave-one-out cross-validation and returns a dict:
 
@@ -50,7 +87,15 @@ Runs leave-one-out cross-validation and returns a dict:
 }
 ```
 
-The three leakage guards (motif selection, scaling, hyperparameter search) are all applied inside the fold loop. See [Classification — Implementation](../classification.md#implementation) for an annotated walkthrough.
+The two leakage guards (scaling, hyperparameter search) are applied inside the fold loop. See [Classification — Implementation](../classification.md#implementation) for an annotated walkthrough.
+
+### `train_final_model(samples, motif_k=4)`
+
+Trains a final L2 logistic regression on all samples (not LOO-CV). Returns `(model, scaler, flat_keys)` — the three components needed to build a `ModelBundle` for deployment.
+
+### `predict_sample(sample_features, model, scaler, flat_keys, motif_k=4)`
+
+Classifies a single `Features` dict using a pre-trained model bundle. Returns `(label, probability)` where `probability` is the confidence for the predicted class.
 
 ### `build_feature_matrix(samples, motifs)`
 
@@ -58,13 +103,9 @@ Builds `(X, y, feature_names)` from a sample list and an explicit motif list. Fl
 
 ---
 
-## Plots — `cfanalysis.plots`
+## Plots — `cfclassify.plots`
 
 All plot functions return a `matplotlib.figure.Figure`. Pass `out_path` to save to disk, or omit it to get the figure object for further manipulation.
-
-```python title="cfanalysis/plots.py"
---8<-- "cfanalysis/plots.py"
-```
 
 | Function | Output | Key design notes |
 |---|---|---|
@@ -75,10 +116,18 @@ All plot functions return a `matplotlib.figure.Figure`. Pass `out_path` to save 
 
 ---
 
-## CLI entry point — `cfanalysis.__main__`
+## Model I/O — `cfclassify.model`
 
-```python title="cfanalysis/__main__.py"
---8<-- "cfanalysis/__main__.py"
-```
+### `save_model(bundle, path)` / `load_model(path)`
 
-The manifest CSV is read with `csv.DictReader` — any extra columns are ignored. BAM paths relative to the manifest directory are resolved before being passed to `cfextract.extract_features()`.
+Serialise/deserialise a `ModelBundle` using `joblib`. The bundle is self-describing: it carries the k-mer length, contig, and feature key ordering needed to classify new samples without any external configuration.
+
+### `save_feature_cache(samples, model_path)` / `load_feature_cache(model_path)`
+
+Write/read the feature cache JSON at `<model_path>.features.json`. The cache stores extracted feature dicts alongside labels, so the `update` subcommand can retrain on all historical samples without re-processing BAMs.
+
+---
+
+## CLI entry point — `cfclassify.__main__`
+
+Three subcommands: `train`, `predict`, `update`. See [Usage → Running](../usage.md#running) for full flag reference.

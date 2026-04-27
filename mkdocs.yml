@@ -7,8 +7,8 @@ docs_dir: docs
 theme:
   name: material
   features:
-    - navigation.tabs
     - navigation.top
+    - toc.integrate
     - content.code.annotate
     - content.code.copy
   palette:
@@ -40,11 +40,13 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Docs:
+  - Tool:
       - Architecture: architecture.md
       - Usage: usage.md
-      - Classification: classification.md
+      - Classification Methodology: classification.md
       - Development: development.md
+  - Analysis Report:
+      - Results: results.md
   - API Reference:
-      - Python (cfanalysis): api/python.md
+      - Python (cfclassify): api/python.md
       - C++ (cfextract): api/cpp.md

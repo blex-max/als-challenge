@@ -13,12 +13,12 @@ cfextract   (C++ / pybind11)
 │  to Python. Memory scales with the number of distinct histogram
 │  bins, not with the number of reads — important for 50 GB BAMs.
 │
-└── cfanalysis   (pure Python)
+└── cfclassify   (pure Python)
        Converts RegionMetrics into per-sample feature vectors,
        runs classification, and produces plots.
 ```
 
-The key extension point is `cfanalysis/features.py::metrics_to_features()` — adding a new field to `RegionMetrics` requires one entry there; the rest of the pipeline picks it up automatically. See the [docs site](https://blex-max.github.io/als-challenge/) for the full data model, scalability analysis, and design rationale.
+The key extension point is `cfclassify/features.py::metrics_to_features()` — adding a new field to `RegionMetrics` requires one entry there; the rest of the pipeline picks it up automatically. See the [docs site](https://blex-max.github.io/als-challenge/) for the full data model, scalability analysis, and design rationale.
 
 ---
 
@@ -64,14 +64,14 @@ With the virtual environment active and dev dependencies installed (`pip install
 
 ```bash
 # Format and lint
-ruff check cfanalysis
-ruff format --check cfanalysis   # drop --check to auto-fix
+ruff check cfclassify
+ruff format --check cfclassify   # drop --check to auto-fix
 
 # Type checking
-python -m basedpyright cfanalysis
+python -m basedpyright cfclassify
 
 # Cyclomatic complexity (informational — does not fail)
-lizard src/ cfanalysis/ --CCN 10 --warnings_only -i -1
+lizard src/ cfclassify/ --CCN 10 --warnings_only -i -1
 
 # C++ unit tests — use a /tmp build dir to avoid generator conflicts with the pip build
 cmake -B /tmp/cfextract-build -DMAKE_TEST=ON -DMAKE_PY=OFF
@@ -131,7 +131,7 @@ A manifest for the 22-sample ALS/CTRL cohort (chr21-only, downsampled) is at `da
 ### Run
 
 ```bash
-cfanalysis --manifest data/samples.csv --output-dir results/
+cfclassify --manifest data/samples.csv --output-dir results/
 ```
 
 Options:
@@ -168,10 +168,10 @@ docker pull ghcr.io/blex-max/als-challenge:latest
 Or build locally:
 
 ```bash
-docker build -t cfanalysis .
+docker build -t cfclassify .
 ```
 
-Then run, mounting your data (replace `<image>` with `ghcr.io/blex-max/als-challenge:latest` or `cfanalysis`):
+Then run, mounting your data (replace `<image>` with `ghcr.io/blex-max/als-challenge:latest` or `cfclassify`):
 
 ```bash
 docker run --rm \

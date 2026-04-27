@@ -11,7 +11,6 @@
 
 #include "core/access.hpp"
 #include "core/extract.hpp"
-#include "core/features.hpp"
 #include "core/stats.hpp"
 
 // minimal synthetic bam1_t with known sequence
@@ -45,41 +44,6 @@ make_read (const std::string& seq, bool reverse_strand)
 }
 
 // ---------------------------------------------------------------------------
-// RegionMetrics default state
-// ---------------------------------------------------------------------------
-
-TEST_CASE("RegionMetrics default-constructed end_motifs is empty") {
-  cfextract::RegionMetrics m;
-  REQUIRE(m.end_motifs.empty());
-}
-
-TEST_CASE("RegionMetrics default-constructed frag_len_hist is zero-filled with 1001 elements") {
-  cfextract::RegionMetrics m;
-  REQUIRE(m.frag_len_hist.size() == 1001);
-  for (const auto& v : m.frag_len_hist) {
-    REQUIRE(v == 0);
-  }
-}
-
-TEST_CASE("RegionMetrics default-constructed fl_stats fields are NaN") {
-  cfextract::RegionMetrics m;
-  REQUIRE(std::isnan(m.fl_stats.mean));
-  REQUIRE(std::isnan(m.fl_stats.std_dev));
-}
-
-TEST_CASE("RegionMetrics default-constructed methylation fields are NaN") {
-  cfextract::RegionMetrics m;
-  REQUIRE(std::isnan(m.methylation.mean));
-  REQUIRE(std::isnan(m.methylation.entropy));
-}
-
-TEST_CASE("RegionMetrics default-constructed position histograms are empty") {
-  cfextract::RegionMetrics m;
-  REQUIRE(m.start_pos_hist.empty());
-  REQUIRE(m.end_pos_hist.empty());
-}
-
-// ---------------------------------------------------------------------------
 // open_aln error path
 // ---------------------------------------------------------------------------
 
@@ -92,38 +56,48 @@ TEST_CASE("open_aln throws std::runtime_error for non-existent file") {
 }
 
 // ---------------------------------------------------------------------------
-// get_end_motif
+// accumlate_motifs
 // ---------------------------------------------------------------------------
 
-TEST_CASE("get_end_motif forward strand returns first N bases") {
+TEST_CASE("accumlate_motifs forward strand records first N bases") {
   bam1_t* b = make_read("ACGTTTTT", false);
-  REQUIRE(feature_extractors::get_end_motif (b, 4) == "ACGT");
+  extractors::MotifCounts counts;
+  extractors::accumlate_motifs(counts, b, 4);
+  REQUIRE(counts["ACGT"] == 1);
   bam_destroy1(b);
 }
 
-TEST_CASE("get_end_motif reverse strand returns reverse complement of last N bases") {
+TEST_CASE("accumlate_motifs reverse strand records reverse complement of last N bases") {
   // seq: TTTTACGA  last 4: ACGA  reversed: AGCA  complemented: TCGT
   bam1_t* b = make_read("TTTTACGA", true);
-  REQUIRE(feature_extractors::get_end_motif (b, 4) == "TCGT");
+  extractors::MotifCounts counts;
+  extractors::accumlate_motifs(counts, b, 4);
+  REQUIRE(counts["TCGT"] == 1);
   bam_destroy1(b);
 }
 
-TEST_CASE("get_end_motif respects smaller motif size") {
+TEST_CASE("accumlate_motifs respects smaller motif size") {
   bam1_t* b = make_read("ACGTTTTT", false);
-  REQUIRE(feature_extractors::get_end_motif (b, 2) == "AC");
+  extractors::MotifCounts counts;
+  extractors::accumlate_motifs(counts, b, 2);
+  REQUIRE(counts["AC"] == 1);
   bam_destroy1(b);
 }
 
-TEST_CASE("get_end_motif homopolymer sequence") {
+TEST_CASE("accumlate_motifs homopolymer sequence") {
   bam1_t* b = make_read("AAAAAAAA", false);
-  REQUIRE(feature_extractors::get_end_motif (b, 4) == "AAAA");
+  extractors::MotifCounts counts;
+  extractors::accumlate_motifs(counts, b, 4);
+  REQUIRE(counts["AAAA"] == 1);
   bam_destroy1(b);
 }
 
-TEST_CASE("get_end_motif reverse strand homopolymer is self-complementary") {
+TEST_CASE("accumlate_motifs reverse strand homopolymer is self-complementary") {
   // RC of TTTT is AAAA
   bam1_t* b = make_read("AAAATTTT", true);
-  REQUIRE(feature_extractors::get_end_motif (b, 4) == "AAAA");
+  extractors::MotifCounts counts;
+  extractors::accumlate_motifs(counts, b, 4);
+  REQUIRE(counts["AAAA"] == 1);
   bam_destroy1(b);
 }
 
@@ -162,14 +136,14 @@ TEST_CASE("compute_fl_stats mono/di ratio is 1 when counts are equal") {
 // ---------------------------------------------------------------------------
 
 TEST_CASE("compute_meth_stats empty site map returns NaN") {
-  std::unordered_map<int64_t, cfextract::CpGSiteCount> sites;
+  extractors::CpGMap sites;
   const auto s = cfextract::compute_meth_stats (sites);
   REQUIRE(std::isnan(s.mean));
   REQUIRE(std::isnan(s.entropy));
 }
 
 TEST_CASE("compute_meth_stats all-methylated sites: mean 1, entropy 0, frac_high 1") {
-  std::unordered_map<int64_t, cfextract::CpGSiteCount> sites;
+  extractors::CpGMap sites;
   for (int64_t i = 0; i < 10; ++i) {
     sites[i] = { 10, 0 };   // methylated=10, unmethylated=0 → rate=1.0
   }
@@ -182,7 +156,7 @@ TEST_CASE("compute_meth_stats all-methylated sites: mean 1, entropy 0, frac_high
 }
 
 TEST_CASE("compute_meth_stats all-unmethylated sites: mean 0, frac_low 1") {
-  std::unordered_map<int64_t, cfextract::CpGSiteCount> sites;
+  extractors::CpGMap sites;
   for (int64_t i = 0; i < 10; ++i) {
     sites[i] = { 0, 10 };
   }
@@ -191,27 +165,4 @@ TEST_CASE("compute_meth_stats all-unmethylated sites: mean 0, frac_low 1") {
   REQUIRE(s.entropy   == Catch::Approx(0.0).margin(1e-9));
   REQUIRE(s.frac_high == Catch::Approx(0.0).margin(1e-9));
   REQUIRE(s.frac_low  == Catch::Approx(1.0));
-}
-
-
-// --- BENCHMARKS --- //
-// run with --benchmark-samples N; skipped in normal CI
-
-TEST_CASE("benchmark compute_fl_stats") {
-  std::array<size_t, 1001> hist{};
-  for (size_t i = 100; i < 300; ++i) { hist[i] = 1000; }
-  BENCHMARK("compute_fl_stats 1001 bins") {
-    return cfextract::compute_fl_stats (hist);
-  };
-}
-
-TEST_CASE("benchmark compute_meth_stats 50k sites") {
-  std::unordered_map<int64_t, cfextract::CpGSiteCount> sites;
-  sites.reserve (50000);
-  for (int64_t i = 0; i < 50000; ++i) {
-    sites[i] = { static_cast<size_t> (i % 10), static_cast<size_t> (10 - i % 10) };
-  }
-  BENCHMARK("compute_meth_stats 50k sites") {
-    return cfextract::compute_meth_stats (sites);
-  };
 }

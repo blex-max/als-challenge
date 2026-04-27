@@ -1,23 +1,42 @@
 #include "extract.hpp"
 
 #include <algorithm>
-#include <memory>
-#include <stdexcept>
-#include <string>
 
-#include <htslib/hts.h>
-#include <htslib/sam.h>
-
-#include "access.hpp"
-#include "features.hpp"
-#include "stats.hpp"
+#include "util.hpp"
 
 
-namespace {
+namespace extractors {
+
+void
+accumlate_motifs
+(MotifCounts& counts, const bam1_t* b, size_t motif_sz)
+{
+  std::string motif;
+
+  const auto bseq = bam_get_seq (b);
+  const auto seq_len = static_cast<size_t> (b->core.l_qseq);
+
+  if (b->core.flag & BAM_FREVERSE) {
+    for (size_t i = seq_len - motif_sz; i < seq_len; ++i) {
+      motif.push_back (seq_nt16_str[bam_seqi(bseq, i)]);
+    }
+    std::reverse (motif.begin(), motif.end());
+    for (char& c : motif) {
+      c = util::seq_complement (c);
+    }
+  }
+  else {
+    for (size_t i = 0; i < motif_sz; ++i) {
+      motif.push_back (seq_nt16_str[bam_seqi(bseq, i)]);
+    }
+  }
+
+  ++counts[motif];
+}
 
 void
 accumulate_methylation
-(const bam1_t* b, std::unordered_map<int64_t, cfextract::CpGSiteCount>& cpg_sites)
+(CpGMap& cpg_sites, const bam1_t* b)
 {
   const uint8_t* xm_ptr = bam_aux_get (b, "XM");
   if (!xm_ptr || (*xm_ptr != static_cast<uint8_t> ('Z'))) {
@@ -52,78 +71,3 @@ accumulate_methylation
 
 }
 
-
-namespace cfextract {
-
-namespace ha = htsacc;
-
-RegionMetrics
-extract_metrics
-(
-  std::filesystem::path aln_fp,
-  std::string_view contig,
-  int64_t start,
-  int64_t stop
-)
-{
-  namespace fx = feature_extractors;
-
-  auto aln = ha::open_aln (aln_fp);
-
-  const int32_t tid = sam_hdr_name2tid (aln.hdr, std::string (contig).c_str());
-  if (tid < 0) {
-    throw std::runtime_error ("unknown contig: " + std::string (contig));
-  }
-  if (stop < 0) {
-    stop = static_cast<int64_t> (aln.hdr->target_len[static_cast<size_t> (tid)]);
-  }
-
-  std::unique_ptr<hts_itr_t, void(*)(hts_itr_t*)> reg_iter {
-    ha::get_region (aln, {tid, start, stop}), hts_itr_destroy
-  };
-  std::unique_ptr<bam1_t, void(*)(bam1_t*)> b {bam_init1(), bam_destroy1};
-
-  constexpr size_t motif_sz = 4;
-  constexpr int64_t pos_bin_sz = 100000;
-
-  RegionMetrics out;
-  std::unordered_map<int64_t, CpGSiteCount> cpg_sites;
-
-  while (true) {
-    const auto itr_rc = sam_itr_next (aln.f, reg_iter.get(), b.get());
-    // sam_itr_next returns -1 for EOF and < -1 for errors; both are terminal.
-    if (itr_rc < 0) {
-      break;
-    }
-    if ((b->core.flag & 3852) || (b->core.flag & 3) != 3) {
-      continue;
-    }
-
-    // end motif
-    ++out.end_motifs[fx::get_end_motif (b.get(), motif_sz)];
-
-    // fragment length — leftmost read of pair only (isize > 0 avoids double-counting).
-    // isize (TLEN) is set by the aligner; a more robust approach would derive fragment
-    // length from PNEXT + cigar_ref_length(MC tag), which is independent of aligner
-    // correctness. For Bismark PE output TLEN is reliable, but this is a known limitation.
-    if (b->core.isize > 0) {
-      const auto fl = static_cast<size_t> (b->core.isize);
-      out.frag_len_hist[std::min (fl, size_t{1000})]++;
-    }
-
-    // methylation from XM Bismark tag — accumulated per-site; stats computed post-loop
-    accumulate_methylation (b.get(), cpg_sites);
-
-    // position distributions (100 kbp bins, summary visualization only)
-    ++out.start_pos_hist[b->core.pos / pos_bin_sz];
-    ++out.end_pos_hist[bam_endpos (b.get()) / pos_bin_sz];
-  }
-
-  // cpg_sites is local and freed here; only the 5 summary scalars cross the C++/Python boundary
-  out.methylation = compute_meth_stats (cpg_sites);
-  out.fl_stats    = compute_fl_stats (out.frag_len_hist);
-
-  return out;
-}
-
-}

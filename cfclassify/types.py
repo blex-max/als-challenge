@@ -1,5 +1,8 @@
 from typing import TypedDict
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+
 
 class Features(TypedDict, total=False):
     end_motifs: dict[str, float]
@@ -22,3 +25,12 @@ class Sample(TypedDict):
     sample_id: str
     label: str
     features: Features
+
+
+class ModelBundle(TypedDict):
+    model: LogisticRegression
+    scaler: StandardScaler
+    k: int
+    flat_keys: list[str]
+    contig: str
+    n_training_samples: int
