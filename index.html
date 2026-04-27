@@ -86,7 +86,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="." title="ALS cfDNA Analysis" class="md-header__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -208,76 +210,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-    
-  
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="architecture/" class="md-tabs__link">
-          
-  
-  
-  Docs
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="api/python/" class="md-tabs__link">
-          
-  
-  
-  API Reference
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -291,10 +223,10 @@
                     
 
 
+
   
 
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="." title="ALS cfDNA Analysis" class="md-nav__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -419,17 +351,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-results-chr21-cohort" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current results (chr21 cohort)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -458,9 +379,6 @@
     
     
     
-      
-      
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -476,7 +394,7 @@
   <span class="md-ellipsis">
     
   
-    Docs
+    Tool
   
 
     
@@ -492,7 +410,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Docs
+    Tool
   
 
           </label>
@@ -568,7 +486,7 @@
   <span class="md-ellipsis">
     
   
-    Classification
+    Classification Methodology
   
 
     
@@ -627,9 +545,6 @@
     
     
     
-      
-      
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -639,6 +554,88 @@
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Report
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analysis Report
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -656,8 +653,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -681,7 +678,7 @@
   <span class="md-ellipsis">
     
   
-    Python (cfanalysis)
+    Python (cfclassify)
   
 
     
@@ -737,87 +734,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-at-a-glance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline at a glance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#engineering-highlights" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Engineering highlights
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-results-chr21-cohort" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current results (chr21 cohort)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick start
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -832,117 +748,88 @@
 
 
 <h1 id="als-cfdna-analysis">ALS cfDNA Analysis</h1>
-<p>A cfDNA feature-extraction and classification pipeline for distinguishing ALS patients from healthy controls using bisulfite-sequenced plasma cell-free DNA.</p>
+<p>A cfDNA feature-extraction and classification pipeline for identifying putative ALS patients using bisulfite-sequenced plasma cell-free DNA.</p>
 <hr />
 <h2 id="background">Background</h2>
 <p>Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it can serve as a liquid biopsy for a range of conditions — including neurodegenerative diseases such as ALS.</p>
-<p>The question is: can we distinguish ALS patients from healthy controls using features extracted from bisulfite-sequenced cfDNA BAM files?</p>
-<p>The reference cohort comes from Li et al. (2021) (PRJNA691320): 22 samples (12 ALS, 10 CTRL), Illumina NovaSeq, Bismark-aligned, chr21 only for this analysis.</p>
+<p>This tool addresses the question: can we distinguish ALS patients from healthy controls using features extracted from bisulfite-sequenced plasma cfDNA BAM files?</p>
 <hr />
 <h2 id="pipeline-at-a-glance">Pipeline at a glance</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BAM files (12 ALS + 10 CTRL, chr21, bisulfite-sequenced)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         ▼
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  cfextract  (C++ / pybind11 / htslib)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ─────────────────────────────────────
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  • Per-fragment: end 4-mer motif, length, XM methylation tag
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  • Histograms accumulated in O(bins) memory — not O(reads)
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  • Returns compact RegionMetrics struct
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>         │
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>         ▼
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  cfanalysis  (pure Python)
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  ─────────────────────────
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  • Normalises end-motif counts → frequencies
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>  • Extracts scalar summary statistics (fragment length, methylation)
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>  • Runs LOO-CV with L2 logistic regression + inner GridSearchCV
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  • Produces plots and classification report
-</span></code></pre></div>
+<p>The C++ core (<code>cfextract</code>) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact <code>RegionMetrics</code> boundary object. The Python layer (<code>cfclassify</code>) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.</p>
 <hr />
 <h2 id="engineering-highlights">Engineering highlights</h2>
 <ul>
-<li><strong>CI on every push</strong> — A series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment.</li>
+<li><strong>CI on every push</strong> — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment.</li>
 <li><strong>Portable container</strong> — pre-built image available via package registry (<code>docker pull ghcr.io/blex-max/als-challenge:latest</code>) eliminates end-user build issues; the full pipeline runs reproducibly on any machine with a single pull.</li>
-<li><strong>Language-agnostic extraction core</strong> — Core feature extraction and file I/O are handled in performant cpp. Python bindings are provided out of the box, but analysts can drive analysis from Python, R, Julia, or any language for which bindings can be made, without having to reimplement key functionality.</li>
+<li><strong>Language-agnostic extraction core</strong> — core feature extraction and file I/O are handled in performant cpp. Python bindings are provided out of the box, but analysts can drive analysis from Python, R, Julia, or any language for which bindings can be made, without having to reimplement key functionality.</li>
 <li><strong>Memory scales with region size only, not read depth</strong> — peak footprint is bounded by the number of unique CpG sites in the target region, not read count; a deeply sequenced chr21 BAM uses the same memory as a shallow one, keeping extraction tractable on standard hardware.</li>
-<li><strong>Fast extraction with benchmarks</strong> — fragment stats complete in ~2 µs, methylation at 50k sites in ~513 µs; benchmarks are embedded in the test suite and are verifiable on any machine.</li>
-<li><strong>Contributor guardrails</strong> — <a href="https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> documents quality standards, C++ style rules, and extension patterns for human and AI contributors alike</li>
+<li><strong>Fast extraction</strong> — <code>cfextract.extract_features()</code> completes chr21 extraction in <strong>0.10 ± 0.00 s</strong> wall time, 5.9 ± 0.3 MB peak RSS across 22 chr21 BAMs (10 M reads per sample, Apple M-series, 3 repeats; reproduce with <code>python scripts/bench_extract.py --repeat 3</code>).</li>
+<li><strong>Deployable model</strong> — the <code>train</code> subcommand fits and persists a final model bundle; <code>predict</code> applies it to new samples without retraining, enabling deployment beyond the training cohort.</li>
+<li><strong>Incremental training</strong> — the <code>update</code> subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.</li>
+<li><strong>Contributor guardrails</strong> — <a href="https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.</li>
 </ul>
 <hr />
+<h2 id="quick-start">Quick start</h2>
+<p>Start by creating a manifest CSV that lists your samples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sample_id,bam_path,label
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ALS_001,bams/ALS_001.bam,als
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>CTRL_001,bams/CTRL_001.bam,ctrl
+</span></code></pre></div>
+<p><strong>Option A — Docker (no local build required)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/blex-max/als-challenge:latest
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Train: runs LOO-CV evaluation and saves a deployable model to /results/model.pkl</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/bams:/data/bams<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/samples.csv:/data/samples.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/results:/results<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span>train<span class="w"> </span>--manifest<span class="w"> </span>/data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>/results
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Predict: classify a new unlabelled sample against the saved model</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/bams:/data/bams<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/results:/results<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span>predict<span class="w"> </span>--bam<span class="w"> </span>/data/bams/new_patient.bam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">          </span>--model-path<span class="w"> </span>/results/model.pkl<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">          </span>--sample-id<span class="w"> </span>new_patient
+</span></code></pre></div>
+<p><strong>Option B — pip install (from source)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blex-max/als-challenge.git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>als-challenge
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>cfclassify<span class="w"> </span>train<span class="w"> </span>--manifest<span class="w"> </span>data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>results/
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>cfclassify<span class="w"> </span>predict<span class="w"> </span>--bam<span class="w"> </span>new_patient.bam<span class="w"> </span>--model-path<span class="w"> </span>results/model.pkl<span class="w"> </span>--sample-id<span class="w"> </span>new_patient
+</span></code></pre></div>
+<p>See the <a href="usage/">Usage</a> page for full details.</p>
 <p>Three feature classes drive the classifier:</p>
 <table>
 <thead>
 <tr>
 <th>Feature class</th>
 <th>Key signal</th>
-<th>Chr21 performance</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>End-motif frequencies</strong></td>
 <td>Nuclease preference (DNase I / CAD balance shifts in disease)</td>
-<td>Moderate</td>
 </tr>
 <tr>
 <td><strong>Fragment length</strong></td>
 <td>Nucleosomal occupancy and chromatin remodelling</td>
-<td><strong>Strong</strong> (<code>fl_ratio_mono_di</code> effect size 0.89)</td>
 </tr>
 <tr>
 <td><strong>CpG methylation</strong></td>
 <td>Differential methylation at tissue-specific loci</td>
-<td>Weak (chr21 is constitutively methylated)</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="current-results-chr21-cohort">Current results (chr21 cohort)</h2>
-<p>LOO-CV with L2 logistic regression on 22 samples:</p>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>All features</th>
-<th>Fragment-only</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Accuracy</td>
-<td>0.64</td>
-<td>0.68</td>
-</tr>
-<tr>
-<td>Macro F1</td>
-<td>0.62</td>
-<td>0.66</td>
-</tr>
-</tbody>
-</table>
-<p>Fragment length features — especially <code>fl_ratio_mono_di</code> (mono-nucleosomal / di-nucleosomal count ratio) — dominate the signal. Methylation features add noise on chr21 because this chromosome is dominated by satellite repeats that are essentially fully methylated in all samples. See <a href="classification/">Classification</a> for the full feature analysis, classifier justification, and LOO-CV methodology.</p>
-<div class="admonition note">
-<p class="admonition-title">Full-genome projection</p>
-<p>Chr21 is ~1.5% of the autosomal genome — extending the analysis to the full genome is expected to substantially increase classification power. Notably, methylation features are uninformative here but likley carry genuine signal across the rest of the genome.</p>
-</div>
-<hr />
-<h2 id="quick-start">Quick start</h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>cfanalysis<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>--manifest<span class="w"> </span>data/samples.csv<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>--output-dir<span class="w"> </span>results/
-</span></code></pre></div>
-<p>Or via Docker:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/blex-max/als-challenge:latest
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/bams:/data/bams<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/samples.csv:/data/samples.csv<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>-v<span class="w"> </span>/path/to/results:/results<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span>--manifest<span class="w"> </span>/data/samples.csv<span class="w"> </span>--output-dir<span class="w"> </span>/results
-</span></code></pre></div>
-<p>See the <a href="usage/">Usage</a> page for full installation and options.</p>
+<!-- TODO this probably needs a citation - is the Li paper sufficient that we have in scratch/? -->
+<p>cfDNA fragments are generated by nuclease cleavage; different nucleases prefer different DNA sequences at the cut site (the "end motif"). Fragment length reflects chromatin packaging: nucleosomes protect small stretches of DNA, creating characteristic peaks at ~167 bp (mono-nucleosomal) and ~280–400 bp (di-nucleosomal).</p>
+<p>See the <a href="results/">Results</a> page for plots, per-sample feature data, and classification metrics from the chr21 test cohort.</p>
 
 
 
@@ -998,7 +885,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "toc.integrate", "content.code.annotate", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>

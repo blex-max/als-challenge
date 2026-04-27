@@ -88,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="ALS cfDNA Analysis" class="md-header__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -210,76 +212,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../architecture/" class="md-tabs__link">
-          
-  
-  
-  Docs
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../api/python/" class="md-tabs__link">
-          
-  
-  
-  API Reference
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -293,10 +225,10 @@
                     
 
 
+
   
 
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="ALS cfDNA Analysis" class="md-nav__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -360,28 +292,22 @@
     
     
     
-      
-        
-        
-      
-      
     
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Docs
+    Tool
   
 
     
@@ -397,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Docs
+    Tool
   
 
           </label>
@@ -517,6 +443,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-docker-recommended-for-reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A — Docker (recommended for reproducibility)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B — From source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -543,10 +497,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#train-train-on-a-labelled-cohort" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Options
+        train — Train on a labelled cohort
       
     </span>
   </a>
@@ -554,10 +508,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#output-files" class="md-nav__link">
+  <a href="#predict-classify-a-single-unlabelled-bam" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output files
+        predict — Classify a single unlabelled BAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-add-a-new-labelled-sample-and-retrain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        update — Add a new labelled sample and retrain
       
     </span>
   </a>
@@ -566,17 +531,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker
-      
-    </span>
-  </a>
   
 </li>
       
@@ -603,7 +557,7 @@
   <span class="md-ellipsis">
     
   
-    Classification
+    Classification Methodology
   
 
     
@@ -662,9 +616,6 @@
     
     
     
-      
-      
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -674,6 +625,88 @@
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Report
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analysis Report
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -691,8 +724,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -716,7 +749,7 @@
   <span class="md-ellipsis">
     
   
-    Python (cfanalysis)
+    Python (cfclassify)
   
 
     
@@ -772,115 +805,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manifest-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Manifest file
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#running" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Running
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Running">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#output-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output files
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -935,27 +859,45 @@
 </span></code></pre></div></p>
 <hr />
 <h2 id="installation">Installation</h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blex-max/als-challenge.git
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>als-challenge
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<h3 id="option-a-docker-recommended-for-reproducibility">Option A — Docker (recommended for reproducibility)</h3>
+<p>A pre-built image is available on GHCR and bundles all C++ dependencies. No local build is needed.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/blex-max/als-challenge:latest
 </span></code></pre></div>
-<p><code>pip install</code> triggers scikit-build-core, which compiles the C++ extension (<code>cfextract</code>) and installs the <code>cfanalysis</code> CLI. If <code>htslib</code> is not found automatically via <code>pkg-config</code>, pass the paths explicitly:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-C<span class="w"> </span>cmake.define.HTSLIB_INCLUDE_DIR<span class="o">=</span>/path/to/include<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-C<span class="w"> </span>cmake.define.HTSLIB_LIBRARY<span class="o">=</span>/path/to/libhts.a
+<p>Run the pipeline with volume mounts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/bams:/data/bams<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/samples.csv:/data/samples.csv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/results:/results<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span>train<span class="w"> </span>--manifest<span class="w"> </span>/data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>/results
 </span></code></pre></div>
-<p>On macOS with a non-default compiler (e.g. Apple Clang):
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">CC</span><span class="o">=</span>/usr/bin/clang<span class="w"> </span><span class="nv">CXX</span><span class="o">=</span>/usr/bin/clang++<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</span></code></pre></div></p>
+<p>Build locally:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>cfclassify<span class="w"> </span>.
+</span></code></pre></div>
+<h3 id="option-b-from-source">Option B — From source</h3>
+<p>Before running, prepare a manifest CSV describing your samples — see <a href="#manifest-file">Manifest file</a> below.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blex-max/als-challenge.git
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>als-challenge
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span></code></pre></div>
+<p><code>pip install</code> triggers scikit-build-core, which compiles the C++ extension (<code>cfextract</code>) and installs the <code>cfclassify</code> CLI. If <code>htslib</code> is not found automatically via <code>pkg-config</code>, pass the paths explicitly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>-C<span class="w"> </span>cmake.define.HTSLIB_INCLUDE_DIR<span class="o">=</span>/path/to/include<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>-C<span class="w"> </span>cmake.define.HTSLIB_LIBRARY<span class="o">=</span>/path/to/libhts.a
+</span></code></pre></div>
+<p>If Homebrew's Clang takes precedence over the system compiler (common on macOS), specify the compiler explicitly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">CC</span><span class="o">=</span>/usr/bin/clang<span class="w"> </span><span class="nv">CXX</span><span class="o">=</span>/usr/bin/clang++<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span></code></pre></div>
+<p>This is typically needed on Apple Silicon Macs where Xcode CLT and Homebrew Clang coexist.</p>
 <hr />
 <h2 id="manifest-file">Manifest file</h2>
 <p>The pipeline takes a CSV manifest describing the samples:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sample_id,bam_path,label
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ALS_001,bams/ALS_001.bam,als
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>ALS_002,bams/ALS_002.bam,als
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>CTRL_001,bams/CTRL_001.bam,ctrl
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sample_id,bam_path,label
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ALS_001,bams/ALS_001.bam,als
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ALS_002,bams/ALS_002.bam,als
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>CTRL_001,bams/CTRL_001.bam,ctrl
 </span></code></pre></div>
 <ul>
 <li><code>sample_id</code> — unique identifier, used in plot labels and the summary CSV</li>
@@ -965,9 +907,13 @@
 <p>Each BAM file must have an accompanying BAI index at <code>&lt;bam&gt;.bai</code> or <code>&lt;bam&gt;.csi</code>.</p>
 <hr />
 <h2 id="running">Running</h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>cfanalysis<span class="w"> </span>--manifest<span class="w"> </span>data/samples.csv<span class="w"> </span>--output-dir<span class="w"> </span>results/
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cfclassify<span class="w"> </span>&lt;subcommand&gt;<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </span></code></pre></div>
-<h3 id="options">Options</h3>
+<p>Three subcommands are available.</p>
+<h3 id="train-train-on-a-labelled-cohort"><code>train</code> — Train on a labelled cohort</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cfclassify<span class="w"> </span>train<span class="w"> </span>--manifest<span class="w"> </span>data/samples.csv<span class="w"> </span>--out-dir<span class="w"> </span>results/
+</span></code></pre></div>
+<p>Runs LOO-CV and writes the evaluation report and plots. Also fits a final model on all samples and saves it to <code>&lt;out-dir&gt;/model.pkl</code> alongside a feature cache for use by <code>update</code>.</p>
 <table>
 <thead>
 <tr>
@@ -988,18 +934,18 @@
 <td>Contig name to extract features from (must match BAM header)</td>
 </tr>
 <tr>
-<td><code>--output-dir</code></td>
+<td><code>--out-dir</code></td>
 <td><code>.</code></td>
 <td>Directory for all output files; created if absent</td>
 </tr>
 <tr>
-<td><code>--top-motifs</code></td>
-<td><code>20</code></td>
-<td>Number of top-frequency 4-mer end motifs to include as classifier features</td>
+<td><code>--motif-length</code></td>
+<td><code>4</code></td>
+<td>k-mer length for end-motif features; 4^k features used (default 4 → 256)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="output-files">Output files</h3>
+<p>Output files:</p>
 <table>
 <thead>
 <tr>
@@ -1017,8 +963,16 @@
 <td>Per-sample scalar statistics (fl_mean, methylation_mean, etc.)</td>
 </tr>
 <tr>
+<td><code>model.pkl</code></td>
+<td>Trained model bundle (joblib)</td>
+</tr>
+<tr>
+<td><code>model.pkl.features.json</code></td>
+<td>Feature cache for <code>update</code></td>
+</tr>
+<tr>
 <td><code>end_motifs.png</code></td>
-<td>Grouped bar chart of top-N end-motif frequencies, ALS vs CTRL</td>
+<td>Grouped bar chart of top-10 end-motif frequencies, ALS vs CTRL</td>
 </tr>
 <tr>
 <td><code>frag_lengths.png</code></td>
@@ -1038,23 +992,79 @@
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="docker">Docker</h2>
-<p>A pre-built image is available on GHCR:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/blex-max/als-challenge:latest
+<h3 id="predict-classify-a-single-unlabelled-bam"><code>predict</code> — Classify a single unlabelled BAM</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>cfclassify<span class="w"> </span>predict<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>--bam<span class="w"> </span>patient_001.bam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>--model-path<span class="w"> </span>models/als_chr21.pkl<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span>--sample-id<span class="w"> </span>patient_001
 </span></code></pre></div>
-<p>Run the pipeline with volume mounts:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/bams:/data/bams<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/samples.csv:/data/samples.csv<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>-v<span class="w"> </span>/host/path/to/results:/results<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span>ghcr.io/blex-max/als-challenge:latest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span>--manifest<span class="w"> </span>/data/samples.csv<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span>--output-dir<span class="w"> </span>/results
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--bam</code></td>
+<td><em>(required)</em></td>
+<td>Path to the BAM file (must be indexed)</td>
+</tr>
+<tr>
+<td><code>--model-path</code></td>
+<td><em>(required)</em></td>
+<td>Path to a saved model bundle</td>
+</tr>
+<tr>
+<td><code>--sample-id</code></td>
+<td><code>unknown</code></td>
+<td>Label for progress output</td>
+</tr>
+</tbody>
+</table>
+<p>Prints the predicted class label and probability to stdout. The contig and k-mer length are read from the saved bundle — no separate flags needed.</p>
+<h3 id="update-add-a-new-labelled-sample-and-retrain"><code>update</code> — Add a new labelled sample and retrain</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cfclassify<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>--bam<span class="w"> </span>new_ctrl.bam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>--label<span class="w"> </span>ctrl<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span>--sample-id<span class="w"> </span>CTRL_023<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span>--model-path<span class="w"> </span>models/als_chr21.pkl
 </span></code></pre></div>
-<p>Build locally:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>cfanalysis<span class="w"> </span>.
-</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--bam</code></td>
+<td><em>(required)</em></td>
+<td>BAM file for the new sample</td>
+</tr>
+<tr>
+<td><code>--label</code></td>
+<td><em>(required)</em></td>
+<td>Class label for the new sample</td>
+</tr>
+<tr>
+<td><code>--sample-id</code></td>
+<td><em>(required)</em></td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>--model-path</code></td>
+<td><em>(required)</em></td>
+<td>Path to an existing model bundle</td>
+</tr>
+</tbody>
+</table>
+<p>Extracts features using the stored contig and k, appends the sample to the feature cache, and retrains the model from scratch on all cached samples. Updates both <code>&lt;model-path&gt;</code> and <code>&lt;model-path&gt;.features.json</code> in place.</p>
+<p>Requires at least 2 samples per class in the cache. Run <code>train</code> separately if updated LOO-CV metrics are needed.</p>
 
 
 
@@ -1110,7 +1120,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "toc.integrate", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>

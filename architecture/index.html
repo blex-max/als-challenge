@@ -88,7 +88,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="ALS cfDNA Analysis" class="md-header__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -210,76 +212,6 @@
       
         
           
-            
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
-        
-  
-  
-    
-  
-  Home
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
-          
-  
-  
-  Docs
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../api/python/" class="md-tabs__link">
-          
-  
-  
-  API Reference
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ul>
-  </div>
-</nav>
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -293,10 +225,10 @@
                     
 
 
+
   
 
-
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="ALS cfDNA Analysis" class="md-nav__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
       
@@ -360,28 +292,22 @@
     
     
     
-      
-        
-        
-      
-      
     
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Docs
+    Tool
   
 
     
@@ -397,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Docs
+    Tool
   
 
           </label>
@@ -470,15 +396,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scalability" class="md-nav__link">
+  <a href="#core-extractor-scalability" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scalability
+        Core Extractor Scalability
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Scalability">
+    <nav class="md-nav" aria-label="Core Extractor Scalability">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -493,21 +419,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#space-complexity" class="md-nav__link">
+  <a href="#memory-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Space complexity
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-c-over-pure-python" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why C++ over pure Python
+        Memory model
       
     </span>
   </a>
@@ -531,10 +446,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#extension-point" class="md-nav__link">
+  <a href="#extending-the-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Extension point
+        Extending the tool
       
     </span>
   </a>
@@ -542,10 +457,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
+  <a href="#engineering-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data flow
+        Engineering limitations
       
     </span>
   </a>
@@ -603,7 +518,7 @@
   <span class="md-ellipsis">
     
   
-    Classification
+    Classification Methodology
   
 
     
@@ -662,9 +577,6 @@
     
     
     
-      
-      
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
@@ -674,6 +586,88 @@
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Report
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analysis Report
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -691,8 +685,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -716,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    Python (cfanalysis)
+    Python (cfclassify)
   
 
     
@@ -772,115 +766,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#scalability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scalability
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scalability">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#time-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Time complexity
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#space-complexity" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Space complexity
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-c-over-pure-python" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why C++ over pure Python
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#measured-performance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Measured performance
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#extension-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Extension point
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -896,229 +781,109 @@
 
 <h1 id="architecture">Architecture</h1>
 <p>The pipeline has two layers connected by the <code>RegionMetrics</code> boundary type. Everything upstream of the boundary is C++; everything downstream is pure Python.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cfextract   (C++ / pybind11)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  src/core/access.{cpp,hpp}    — safe BAM/index file handle
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  src/core/features.{cpp,hpp}  — per-read end-motif extraction
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  src/core/stats.{cpp,hpp}     — histogram → scalar summary stats
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  src/core/extract.{cpp,hpp}   — top-level extraction loop → RegionMetrics
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cfextract (C++ / pybind11)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  src/core/core.{cpp,hpp}      — RegionMetrics struct; extract_metrics() entry point
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  src/core/access.{cpp,hpp}    — safe BAM/index file handle
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  src/core/stats.{cpp,hpp}     — binned data -&gt; summary stats
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  src/core/extract.{cpp,hpp}   — per-read motif and methylation accumulators
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  src/bindings/python/         — bindings for python usage
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  ── RegionMetrics boundary ──────────────────────────────────────────────────
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>cfanalysis   (pure Python)
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>   cfanalysis/types.py           — Data schemas
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>   cfanalysis/features.py        — metrics_to_features()
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>   cfanalysis/classify.py        — LOO-CV with inner GridSearchCV
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>   cfanalysis/plots.py           — matplotlib figures
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>   cfanalysis/__main__.py        — CLI entry point
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>cfclassify (Python)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>   cfclassify/types.py           — Data schemas (Features, Sample, ModelBundle)
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>   cfclassify/features.py        — metrics_to_features()
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>   cfclassify/classify.py        — LOO-CV, final model training, inference
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>   cfclassify/model.py           — model bundle and feature cache I/O
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>   cfclassify/plots.py           — matplotlib figures
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>   cfclassify/__main__.py        — CLI entry point (train/predict/update)
 </span></code></pre></div>
 <p>The boundary is deliberately narrow. <code>RegionMetrics</code> carries only compact, pre-reduced data: histograms (fixed-size arrays and small maps) and 5-element stats structs. Raw read data does not cross the C++/Python interface.</p>
-<p>Python bindings are provided such that the extracted features can be used with common frameworks for downstream analysis, but the C++ core can equally be driven from R, Julia, or any other language with a C FFI.</p>
+<p>Python bindings are provided such that the extracted features can be used with common frameworks for downstream analysis, but the C++ core could equally be driven from R, Julia, or any other language with a C FFI. Additionally, when processing whole-genome BAM, I/O throughput will likely dominate total runtime. Processing alignment data directly in C++ with htslib is significantly more performant than using e.g. pysam due to inevitable Python overhead per record. This has not been explicitly benchmarked but the speedup is likely in the 10s with respect to order of magnitude.</p>
 <hr />
-<h2 id="scalability">Scalability</h2>
+<h2 id="core-extractor-scalability">Core Extractor Scalability</h2>
 <h3 id="time-complexity">Time complexity</h3>
-<p>Per <code>extract_metrics()</code> call: <strong>O(R × L)</strong> where R = reads in the region, L = mean read length. The inner per-read cost is O(1) for end-motif lookup and O(L) for CIGAR walking to parse the Bismark <code>XM</code> methylation tag. Post extraction computation is O(N log N) for the median computation over N covered CpG sites and O(1001) for fragment-length statistics. These latter demands are negligible relative to the BAM streaming loop.</p>
-<h3 id="space-complexity">Space complexity</h3>
+<p>Per <code>extract_metrics()</code> call: <strong>O(R × L)</strong> where R = reads in the region, L = read length. The inner per-read cost is O(1) for end-motif lookup and O(L) for CIGAR walking to parse the Bismark <code>XM</code> methylation tag. Post extraction computation is O(N log N) for the median computation over N covered CpG sites and O(1001) for fragment-length statistics. These latter demands are negligible relative to the BAM streaming loop.</p>
+<h3 id="memory-model">Memory model</h3>
+<p><strong>Peak runtime memory (inside <code>extract_metrics()</code>):</strong></p>
+<p>The <code>cpg_sites</code> accumulation map is the dominant runtime allocation. The data stored for a given CpG site requires 24 bytes. Accounting for the overhead of the map itself, that figure grows to approximately 56 bytes per CpG. As such the expected memory usage for e.g. ~5 million covered CpG sites is 5M × 56 ~= 280 MB. On the subsampled chr12 Li data used for building this pipeline, memory usage peaks at about 140 KB for a typical chr21 alignment. This memory is freed before the function returns, the Python side is never required to handle it.</p>
+<p><strong>Memory at the C++/Python boundary (returned <code>RegionMetrics</code>):</strong></p>
 <table>
 <thead>
 <tr>
 <th>Structure</th>
-<th>Lifetime</th>
 <th>Size</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>end_motifs</code></td>
-<td>returned</td>
 <td>≤ 256 entries (all 4<sup>4</sup> 4-mers), ~8 KB</td>
 </tr>
 <tr>
 <td><code>frag_len_hist</code></td>
-<td>returned</td>
 <td>1001 × 8 B = ~8 KB fixed</td>
 </tr>
 <tr>
 <td><code>fl_stats</code></td>
-<td>returned</td>
 <td>5 doubles = 40 B</td>
 </tr>
 <tr>
 <td><code>methylation</code></td>
-<td>returned</td>
 <td>5 doubles = 40 B</td>
 </tr>
 <tr>
 <td><code>start_pos_hist</code> / <code>end_pos_hist</code></td>
-<td>returned</td>
-<td>O(contig_len / 100 kbp): ~4 KB chr21, ~240 KB whole genome</td>
-</tr>
-<tr>
-<td><code>cpg_sites</code> (internal)</td>
-<td>freed before return</td>
-<td>O(covered CpG sites): ~140 KB chr21, up to ~280 MB whole genome</td>
+<td>O(contig_len / 100 kbp): ~4 KB chr21</td>
 </tr>
 </tbody>
 </table>
-<p><code>cpg_sites</code> is a local variable inside <code>extract_metrics()</code> and is freed before the function returns. Python receives only the 5-scalar <code>MethylationStats</code> struct (40 bytes) regardless of coverage depth or region size — the difference between serialising ~280 MB vs 40 bytes across the C++/Python boundary per call.</p>
-<h3 id="why-c-over-pure-python">Why C++ over pure Python</h3>
-<p>A pure-Python implementation using pysam with Welford-style streaming accumulators could compute the coverage-weighted methylation mean in O(1) space. However, four of the five methylation features (entropy, high/low fractions, median) require the <strong>final per-site methylation rate</strong> before they can be computed. A CpG position can be covered by many reads arriving non-consecutively in the BAM, so a site's rate is not known until all reads covering it have been processed.</p>
-<p>The per-site accumulation map (<code>cpg_sites</code>) is therefore the minimal-state online algorithm for these features — it processes one read at a time and updates per-site counters, and cannot be replaced by running accumulators without approximating the median (e.g., Greenwald-Khanna sketch) and losing exact entropy. The map stays entirely in C++ and is discarded before returning; Python never touches it.</p>
-<p>The secondary argument is raw BAM I/O throughput: htslib processes BAM records ~10–50× faster than pysam due to Python's GIL and ctypes overhead per record. For 50 GB BAMs at ~500 M reads, I/O dominates total runtime.</p>
+<p>Python receives only the compact <code>RegionMetrics</code> struct regardless of coverage depth, i.e. only ~20 KB is serialised across the C++/Python boundary per call.</p>
 <h3 id="measured-performance">Measured performance</h3>
-<p>Timings from the Catch2 benchmark suite (Apple M-series, Release build):</p>
+<p>End-to-end <code>cfextract.extract_features()</code> across 22 chr21 BAMs on an Apple M-series machine and using a Release build of this pipeline gave the following performance results:</p>
 <table>
 <thead>
 <tr>
-<th>Routine</th>
-<th>Input</th>
-<th>Time</th>
+<th>Metric</th>
+<th>Mean ± std</th>
+<th>Median</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>compute_fl_stats</code></td>
-<td>1001-bin histogram</td>
-<td>~2 µs</td>
+<td>Wall time</td>
+<td>0.10 ± 0.00 s</td>
+<td>0.09 s</td>
 </tr>
 <tr>
-<td><code>compute_meth_stats</code></td>
-<td>50k CpG sites</td>
-<td>~513 µs</td>
+<td>Peak RSS increase</td>
+<td>5.9 ± 0.3 MB</td>
+<td>5.8 MB</td>
 </tr>
 </tbody>
 </table>
-<p>Reproduce with <code>test-cfextract --benchmark-samples 100</code>.</p>
+<p>Reproduce with <code>python scripts/bench_extract.py --repeat 3</code>.</p>
 <hr />
-<h2 id="extension-point">Extension point</h2>
-<p>Adding a new feature to the pipeline requires changes in only two places:</p>
+<h2 id="extending-the-tool">Extending the tool</h2>
+<p>Adding a new feature to the pipeline requires changes in exactly two places:</p>
 <ol>
-<li><strong>Add a field to <code>RegionMetrics</code></strong> (C++, <code>src/core/extract.hpp</code>) and populate it in <code>src/core/extract.cpp</code>.</li>
-<li><strong>Add corresponding entries in <code>cfanalysis/features.py::metrics_to_features()</code></strong> — flat numeric keys are automatically picked up by <code>build_feature_matrix()</code> in <code>classify.py</code>.</li>
+<li>
+<p><strong>C++ side</strong> (<code>src/core/core.hpp</code> and <code>src/core/core.cpp</code>): add the new field to <code>RegionMetrics</code> and compute its final value inside <code>extract_metrics()</code>. If the feature requires per-read accumulation, add a helper in <code>src/core/extract.{hpp,cpp}</code> (alongside <code>accumlate_motifs</code> and <code>accumulate_methylation</code>) and call it from the per-read loop in <code>extract_metrics()</code>.</p>
+</li>
+<li>
+<p><strong>Python side</strong> (<code>cfclassify/features.py</code>, <code>metrics_to_features()</code>): read the new attribute from the <code>RegionMetrics</code> object and write derived value(s) into the <code>Features</code> dict. If the result is a flat numeric scalar (like <code>fl_mean</code> or <code>methylation_entropy</code>), <code>build_feature_matrix()</code> in <code>classify.py</code> picks it up automatically — no further changes needed. If it is a histogram or dict (like <code>end_motifs</code>), add explicit handling to <code>build_feature_matrix()</code> as well.</p>
+</li>
 </ol>
-<p>No changes are needed to the classification or plotting infrastructure.</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">cfanalysis/features.py — the extension point</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span>
-<span class="normal"><a href="#__codelineno-1-21">21</a></span>
-<span class="normal"><a href="#__codelineno-1-22">22</a></span>
-<span class="normal"><a href="#__codelineno-1-23">23</a></span>
-<span class="normal"><a href="#__codelineno-1-24">24</a></span>
-<span class="normal"><a href="#__codelineno-1-25">25</a></span>
-<span class="normal"><a href="#__codelineno-1-26">26</a></span>
-<span class="normal"><a href="#__codelineno-1-27">27</a></span>
-<span class="normal"><a href="#__codelineno-1-28">28</a></span>
-<span class="normal"><a href="#__codelineno-1-29">29</a></span>
-<span class="normal"><a href="#__codelineno-1-30">30</a></span>
-<span class="normal"><a href="#__codelineno-1-31">31</a></span>
-<span class="normal"><a href="#__codelineno-1-32">32</a></span>
-<span class="normal"><a href="#__codelineno-1-33">33</a></span>
-<span class="normal"><a href="#__codelineno-1-34">34</a></span>
-<span class="normal"><a href="#__codelineno-1-35">35</a></span>
-<span class="normal"><a href="#__codelineno-1-36">36</a></span>
-<span class="normal"><a href="#__codelineno-1-37">37</a></span>
-<span class="normal"><a href="#__codelineno-1-38">38</a></span>
-<span class="normal"><a href="#__codelineno-1-39">39</a></span>
-<span class="normal"><a href="#__codelineno-1-40">40</a></span>
-<span class="normal"><a href="#__codelineno-1-41">41</a></span>
-<span class="normal"><a href="#__codelineno-1-42">42</a></span>
-<span class="normal"><a href="#__codelineno-1-43">43</a></span>
-<span class="normal"><a href="#__codelineno-1-44">44</a></span>
-<span class="normal"><a href="#__codelineno-1-45">45</a></span>
-<span class="normal"><a href="#__codelineno-1-46">46</a></span>
-<span class="normal"><a href="#__codelineno-1-47">47</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cfextract</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">cfanalysis.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Features</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">metrics_to_features</span><span class="p">(</span><span class="n">metrics</span><span class="p">:</span> <span class="n">cfextract</span><span class="o">.</span><span class="n">RegionMetrics</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Features</span><span class="p">:</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a RegionMetrics object into a plain Python feature dict.</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="sd">    This is the sole extension point as RegionMetrics grows.</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="sd">    Adding a new field means adding entries here; the rest of the pipeline</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="sd">    picks up flat numeric features automatically.</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span class="n">features</span><span class="p">:</span> <span class="n">Features</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span class="c1"># End motifs: raw counts → normalised frequencies</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>    <span class="n">raw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">end_motifs</span><span class="p">)</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="n">total_motifs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a>    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;end_motifs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a>        <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="o">/</span> <span class="n">total_motifs</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="k">if</span> <span class="n">total_motifs</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">{}</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a>    <span class="p">)</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a>    <span class="c1"># Fragment length histogram (stored for plotting) and C++-computed summary stats</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a>    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;frag_len_hist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">frag_len_hist</span><span class="p">)</span>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span class="n">fs</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">fl_stats</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;fl_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">mean</span>
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;fl_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">std_dev</span>
-</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;fl_frac_subnucleosomal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">frac_subnucleosomal</span>
-</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;fl_frac_nucleosomal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">frac_nucleosomal</span>
-</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;fl_ratio_mono_di&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">ratio_mono_di</span>
-</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33"></a>
-</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34"></a>    <span class="c1"># CpG methylation summary stats computed in C++ (NaN → absent keys when no coverage)</span>
-</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35"></a>    <span class="n">ms</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">methylation</span>
-</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ms</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
-</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;methylation_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">mean</span>
-</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;methylation_entropy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">entropy</span>
-</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;methylation_frac_high&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">frac_high</span>
-</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;methylation_frac_low&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">frac_low</span>
-</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41"></a>        <span class="n">features</span><span class="p">[</span><span class="s2">&quot;methylation_median&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">median</span>
-</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42"></a>
-</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43"></a>    <span class="c1"># Position histograms (100 kbp bins) — for plotting only, not used in classification</span>
-</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44"></a>    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;start_pos_hist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">start_pos_hist</span><span class="p">)</span>
-</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45"></a>    <span class="n">features</span><span class="p">[</span><span class="s2">&quot;end_pos_hist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">end_pos_hist</span><span class="p">)</span>
-</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46"></a>
-</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47"></a>    <span class="k">return</span> <span class="n">features</span>
-</span></code></pre></div></td></tr></table></div>
+<p>No changes are needed to the classification, model I/O, or plotting infrastructure.</p>
 <hr />
-<h2 id="data-flow">Data flow</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cfextract.extract_features(bam_path, contig)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    │  htslib BAM I/O
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    │  per-read: end motif, fragment length, XM methylation accumulation
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    │  on return: compute_fl_stats() + compute_meth_stats() + free cpg_sites
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    ▼
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>RegionMetrics
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    │
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    ▼
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>metrics_to_features(metrics)          # cfanalysis/features.py
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    │  normalise end-motif counts
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    │  copy histogram + scalar stats
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    │  NaN-check: absent data → absent key (not NaN value)
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    ▼
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Features dict  →  Sample(id, label, features)
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    │
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    ├─→  run_loo_cv(samples)           # cfanalysis/classify.py
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    │        LOO outer loop
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    │          ├─ _select_top_motifs() on training fold
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    │          ├─ build_feature_matrix()
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    │          ├─ StandardScaler.fit_transform() on training fold
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    │          └─ GridSearchCV → predict held-out sample
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    │        classification_report
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    │
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    └─→  plot_*(samples)               # cfanalysis/plots.py
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>             end motifs / frag lengths / methylation / position histograms
-</span></code></pre></div>
+<h2 id="engineering-limitations">Engineering limitations</h2>
+<!-- TODO separate the classifer limiations (bullet point 3) out - that should be in the classifier section it is not an eng concern -->
+<ul>
+<li><strong>Model storage</strong>: <code>ModelBundle</code> is serialised with <code>joblib</code> (pickle). There is no versioning, schema migration, or compatibility guarantee across Python or sklearn releases. A bundle saved with one sklearn version may not load cleanly after a major upgrade.</li>
+<li><strong>Model scalability</strong>: the extractor scales to large cohorts (I/O-bound, memory bounded by region size). The classifier does not: <code>LogisticRegression</code> has no <code>partial_fit</code>, so <code>update</code> always retrains from scratch on all cached feature vectors. This is fast at cfDNA cohort sizes (seconds on CPU) but would not scale to thousands of samples without switching to a solver that supports incremental updates.</li>
+<li><strong>Single-threaded extraction</strong>: <code>extract_metrics()</code> processes one BAM serially. The CLI uses <code>joblib</code> to parallelise across samples at the process level, but per-BAM throughput is single-threaded. This is sufficient for chr21 BAMs (~0.1 s each) but would be a bottleneck for whole-genome runs without introducing intra-file parallelism.</li>
+<li><strong>Single target region</strong>: The current implementation of feature extraction takes a single target region, and the Python CLI tool simply defaults to targeting chr21. A python side programmer would need to make multiple calls <code>extract_metrics</code> to target multiple regions or the entire genome. A future implementation could efficiently accumulate data from multiple target regions using existing htslib multi-region iterator infrastructure.</li>
+</ul>
 
 
 
@@ -1174,7 +939,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "toc.integrate", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
