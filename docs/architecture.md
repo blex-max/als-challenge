@@ -23,7 +23,7 @@ cfclassify (Python)
 
 The boundary is deliberately narrow. `RegionMetrics` carries only compact, pre-reduced data: histograms (fixed-size arrays and small maps) and 5-element stats structs. Raw read data does not cross the C++/Python interface.
 
-Python bindings are provided such that the extracted features can be used with common frameworks for downstream analysis, but the C++ core could equally be driven from R, Julia, or any other language with a C FFI. Additionally, when processing whole-genome BAM, I/O throughput will likely dominate total runtime. Processing alignment data directly in C++ with htslib is significantly more performant than using e.g. pysam due to inevitable Python overhead per record. This has not been explicitly benchmarked but the speedup is likely in the 10s with respect to order of magnitude.
+Python bindings are provided such that the extracted features can be used with common frameworks for downstream analysis, but the C++ core could equally be driven from R, Julia, or any other language with a C FFI. Additionally, when processing whole-genome BAM, I/O throughput will likely dominate total runtime. Processing alignment data directly in C++ with htslib is significantly more performant than using e.g. pysam due to inevitable Python overhead per record. This has not been explicitly benchmarked but the speedup is likely in the tens with respect to order of magnitude.
 
 ---
 

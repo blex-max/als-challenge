@@ -8,7 +8,7 @@ Results from running the pipeline on the chr21 cohort: 22 samples (12 ALS, 10 CT
 
 ![Fragment length distribution](assets/results/frag_lengths.png)
 
-The canonical mono-nucleosomal peak (~167 bp) is visible in both groups. ALS samples show a higher mono-nucleosomal / di-nucleosomal ratio (`fl_ratio_mono_di`), the strongest discriminating feature in this dataset (effect size 0.84).
+A mono-nucleosomal peak at ~167 bp is visible in both groups. ALS samples show a higher mono-nucleosomal / di-nucleosomal ratio (`fl_ratio_mono_di`), the strongest discriminating feature in this dataset (effect size 0.84).
 
 ---
 
@@ -86,7 +86,7 @@ weighted avg       0.63      0.64      0.63        22
 Fragment length features drive classification; methylation features add noise on chr21. See [Classification Methodology](classification.md) for the full methodology and leakage-prevention details.
 
 !!! note "Chr21 scope"
-    Chr21 is ~1.5% of the autosomal genome. Extending to the full genome is expected to substantially increase classification power, particularly for methylation features which are uninformative here but carry genuine signal at promoters, enhancers, and imprinted loci elsewhere.
+    Chr21 is ~1.5% of the autosomal genome. Extending to the full genome is expected to increase classification power, particularly for methylation features which are uninformative here but may carry genuine signal at promoters, enhancers, and imprinted loci elsewhere.
 
 ---
 

@@ -5,3 +5,6 @@ site/
 .cache
 **/__pycache__/
 results/*
+test-results.xml
+scripts/bench_results.txt
+data/results/

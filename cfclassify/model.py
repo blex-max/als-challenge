@@ -1,7 +1,3 @@
-"""Model bundle persistence: save/load trained models and feature caches."""
-
-from __future__ import annotations
-
 import json
 from pathlib import Path
 from typing import cast

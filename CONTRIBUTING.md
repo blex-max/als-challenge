@@ -45,8 +45,6 @@ Threshold is 10 per function. The `-i -1` flag is informational — violations a
 
 ### C++ build and tests
 
-Use `/tmp` to avoid CMake generator conflicts with the pip-driven build in `build/`:
-
 ```bash
 cmake -B /tmp/cfextract-build -DMAKE_TEST=ON -DMAKE_PY=OFF
 cmake --build /tmp/cfextract-build --parallel
@@ -65,37 +63,6 @@ Tests use [Catch2 v3](https://github.com/catchorg/Catch2), fetched at configure 
 - Function calls with arguments should have a space before the opening parenthesis.
 - Function signatures: separate lines for return type, name, and argument list; opening brace on its own line.
 - Non-trivial functions and classes should have a concise explanatory comment.
-
----
-
-## Architecture
-
-Two layers connected by the `RegionMetrics` boundary type:
-
-```
-cfextract   (C++ / pybind11)
-│  src/core/access.{cpp,hpp}    — RAII BAM/index handle (AlnFile)
-│  src/core/features.{cpp,hpp}  — per-read end-motif extraction
-│  src/core/stats.{cpp,hpp}     — histogram → scalar summary stats
-│  src/core/extract.{cpp,hpp}   — top-level extraction loop → RegionMetrics
-│  src/bindings/python/         — pybind11 glue; exposes cfextract.extract_features()
-│
-│  ── RegionMetrics boundary ──
-│
-cfclassify   (pure Python)
-   cfclassify/types.py      — TypedDict schema (Features, Sample)
-   cfclassify/features.py   — metrics_to_features() — primary extension point
-   cfclassify/classify.py   — LOO-CV with inner GridSearchCV
-   cfclassify/plots.py      — matplotlib figures
-   cfclassify/__main__.py   — CLI entry point
-```
-
-**Primary extension point**: adding a new feature to the pipeline requires changes to exactly two places:
-
-1. Add a field to `RegionMetrics` in `src/core/extract.hpp` and populate it in `src/core/extract.cpp`.
-2. Add the conversion logic to `cfclassify/features.py::metrics_to_features()`.
-
-`build_feature_matrix()` in `classify.py` picks up any flat numeric key automatically — no further changes needed.
 
 ---
 
