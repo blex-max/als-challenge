@@ -1,14 +1,14 @@
 # ALS cfDNA Analysis
 
-A cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples in a small research cohort using bisulfite-sequenced plasma cell-free DNA.
-
-A high-performance C++ core (`cfextract`) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact `RegionMetrics` boundary object. A Python modelling layer using sklearn (`cfclassify`) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.
-
-Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it is being investigated as a liquid-biopsy substrate for neurodegenerative disease, including ALS.
+A cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples in a small research cohort using bisulfite-sequenced plasma cell-free DNA. Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it is being investigated as a liquid-biopsy substrate for neurodegenerative disease, including ALS.
 
 ---
 
-## Engineering highlights
+## Pipeline at a glance
+
+A high-performance C++ core (`cfextract`) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact `RegionMetrics` boundary object. A Python modelling layer using sklearn (`cfclassify`) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.
+
+### Engineering Highlights
 
 - **CI on every push** — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment. Analysis includes code complexity/maintainability assessment.
 - **Portable container** — pre-built image available via package registry (`docker pull ghcr.io/blex-max/als-challenge:latest`) minimises end-user issues; the full pipeline should run reproducibly on any machine with a single pull.
@@ -18,6 +18,8 @@ Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells th
 - **Multiple Entrypoints** — the `train` subcommand fits and persists a final model bundle; `predict` applies it to new samples without retraining, enabling use and testing beyond the training cohort.
 - **Incremental training** — the `update` subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.
 - **Contributor guardrails** — [CONTRIBUTING.md](https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md) documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.
+
+See the [Architechture](architecture.md) page for a more in-depth discussion of the design.
 
 ---
 
