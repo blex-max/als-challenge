@@ -11,11 +11,11 @@ Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells th
 ## Engineering highlights
 
 - **CI on every push** — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment. Analysis includes code complexity/maintainability assessment.
-- **Portable container** — pre-built image available via package registry (`docker pull ghcr.io/blex-max/als-challenge:latest`) eliminates end-user build issues; the full pipeline runs reproducibly on any machine with a single pull.
+- **Portable container** — pre-built image available via package registry (`docker pull ghcr.io/blex-max/als-challenge:latest`) minimises end-user issues; the full pipeline should run reproducibly on any machine with a single pull.
 - **Language-agnostic extraction core** — core feature extraction and file I/O are handled in performant cpp. Python bindings are provided out of the box, but analysts can drive analysis from Python, R, Julia, or any language for which bindings can be made, without having to reimplement key functionality.
 - **Memory scales with region size only, not read depth** — peak footprint is bounded by the number of unique CpG sites in the target region, not read count; a deeply sequenced chr21 BAM uses the same memory as a shallow one, keeping extraction tractable on standard hardware.
-- **Fast extraction** — `cfextract.extract_features()` completes chr21 extraction in **0.10 ± 0.00 s** wall time, 5.9 ± 0.3 MB peak RSS across 22 chr21 BAMs (10 M reads per sample, Apple M-series, 3 repeats; reproduce with `python scripts/bench_extract.py --repeat 3`).
-- **Deployable model** — the `train` subcommand fits and persists a final model bundle; `predict` applies it to new samples without retraining, enabling use and testing beyond the training cohort.
+- **Fast extraction** — `cfextract.extract_features()` completes chr21 extraction in **0.10 ± 0.00 s** wall time, 5.9 ± 0.3 MB peak memory usage across 22 chr21 BAMs.
+- **Multiple Entrypoints** — the `train` subcommand fits and persists a final model bundle; `predict` applies it to new samples without retraining, enabling use and testing beyond the training cohort.
 - **Incremental training** — the `update` subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.
 - **Contributor guardrails** — [CONTRIBUTING.md](https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md) documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.
 
@@ -23,13 +23,15 @@ Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells th
 
 ## Quick start
 
-Start by creating a manifest CSV that lists your samples:
+To train the model, start by creating a manifest CSV that lists your samples:
 
 ```csv
 sample_id,bam_path,label
 ALS_001,bams/ALS_001.bam,als
 CTRL_001,bams/CTRL_001.bam,ctrl
 ```
+
+Simple usage is then as follows:
 
 **Option A — Docker (no local build required)**
 
@@ -42,7 +44,7 @@ docker run --rm \
   -v /path/to/samples.csv:/data/samples.csv \
   -v /path/to/results:/results \
   ghcr.io/blex-max/als-challenge:latest \
-  train --manifest /data/samples.csv --out-dir /results
+  train --manifest path/to/manifest.csv --out-dir /results
 
 # Predict: classify a new unlabelled sample against the saved model
 docker run --rm \
@@ -61,7 +63,7 @@ git clone https://github.com/blex-max/als-challenge.git && cd als-challenge
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e .
 
-cfclassify train --manifest data/samples.csv --out-dir results/
+cfclassify train --manifest path/to/manifest.csv --out-dir results/
 cfclassify predict --bam new_patient.bam --model-path results/model.pkl --sample-id new_patient
 ```
 

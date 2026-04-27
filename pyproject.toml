@@ -8,7 +8,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "cfextract"
-version = "0.0.0"
+version = "1.0.0"
 description = "cfDNA analysis toolkit — performant C++ core with Python analysis layer"
 requires-python = ">=3.12"
 dependencies = [
