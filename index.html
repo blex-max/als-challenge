@@ -318,13 +318,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#engineering-highlights" class="md-nav__link">
+  <a href="#pipeline-at-a-glance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Engineering highlights
+        Pipeline at a glance
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Pipeline at a glance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#engineering-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Engineering Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -737,11 +754,11 @@
 
 
 <h1 id="als-cfdna-analysis">ALS cfDNA Analysis</h1>
-<p>A cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples in a small research cohort using bisulfite-sequenced plasma cell-free DNA.</p>
-<p>A high-performance C++ core (<code>cfextract</code>) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact <code>RegionMetrics</code> boundary object. A Python modelling layer using sklearn (<code>cfclassify</code>) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.</p>
-<p>Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it is being investigated as a liquid-biopsy substrate for neurodegenerative disease, including ALS.</p>
+<p>A cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples in a small research cohort using bisulfite-sequenced plasma cell-free DNA. Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it is being investigated as a liquid-biopsy substrate for neurodegenerative disease, including ALS.</p>
 <hr />
-<h2 id="engineering-highlights">Engineering highlights</h2>
+<h2 id="pipeline-at-a-glance">Pipeline at a glance</h2>
+<p>A high-performance C++ core (<code>cfextract</code>) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact <code>RegionMetrics</code> boundary object. A Python modelling layer using sklearn (<code>cfclassify</code>) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.</p>
+<h3 id="engineering-highlights">Engineering Highlights</h3>
 <ul>
 <li><strong>CI on every push</strong> — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment. Analysis includes code complexity/maintainability assessment.</li>
 <li><strong>Portable container</strong> — pre-built image available via package registry (<code>docker pull ghcr.io/blex-max/als-challenge:latest</code>) minimises end-user issues; the full pipeline should run reproducibly on any machine with a single pull.</li>
@@ -752,6 +769,7 @@
 <li><strong>Incremental training</strong> — the <code>update</code> subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.</li>
 <li><strong>Contributor guardrails</strong> — <a href="https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.</li>
 </ul>
+<p>See the <a href="architecture/">Architechture</a> page for a more in-depth discussion of the design.</p>
 <hr />
 <h2 id="quick-start">Quick start</h2>
 <p>To train the model, start by creating a manifest CSV that lists your samples:</p>
