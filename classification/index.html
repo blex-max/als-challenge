@@ -1,0 +1,1275 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://blex-max.github.io/als-challenge/classification/">
+      
+      
+        <link rel="prev" href="../usage/">
+      
+      
+        <link rel="next" href="../development/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Classification - ALS cfDNA Analysis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#classification-approach" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ALS cfDNA Analysis" class="md-header__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ALS cfDNA Analysis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Classification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/blex-max/als-challenge" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    blex-max/als-challenge
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+  Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/python/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ALS cfDNA Analysis" class="md-nav__button md-logo" aria-label="ALS cfDNA Analysis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ALS cfDNA Analysis
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/blex-max/als-challenge" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    blex-max/als-challenge
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Docs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classification
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem framing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#end-motif-frequencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-motif frequencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-length-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragment length features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpg-methylation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CpG methylation features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-validation-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-validation methodology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observed-feature-contributions-chr21-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed feature contributions (chr21 cohort)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python (cfanalysis)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ (cfextract)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-framing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem framing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feature set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#end-motif-frequencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-motif frequencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragment-length-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragment length features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpg-methylation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CpG methylation features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-validation-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-validation methodology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observed-feature-contributions-chr21-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed feature contributions (chr21 cohort)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="classification-approach">Classification approach</h1>
+<h2 id="problem-framing">Problem framing</h2>
+<p>The task is binary classification of plasma cell-free DNA (cfDNA) samples as ALS or healthy control, using features extracted from bisulfite-sequenced paired-end BAM files. The cohort is 22 samples (12 ALS, 10 CTRL), with features extracted from chromosome 21 only. This is a high-dimensional, small-n setting: the feature space (20 motif frequencies + 7 scalar statistics = ~27 features) is comparable in size to the sample count, and chr21 represents a small fraction of the genome.</p>
+<hr />
+<h2 id="feature-set">Feature set</h2>
+<p>Three feature classes are extracted, each motivated by established cfDNA biology.</p>
+<h3 id="end-motif-frequencies">End-motif frequencies</h3>
+<p>cfDNA fragments are generated by nuclease cleavage at preferred sequence contexts. The 5′ end of each fragment (the "end motif") reflects the nuclease responsible: DNase I, caspase-activated DNase (CAD), and others have distinct 4-mer preferences. Disease states alter the balance of nucleases active in circulation, shifting the end-motif spectrum. All 256 possible 4-mers are counted per sample, normalised to frequencies, and the top-N (default 20) by cumulative frequency across the training fold are selected as classifier features.</p>
+<p><strong>Why top-N by frequency rather than by discriminative power</strong>: selecting motifs by AUC or F-statistic inside the CV fold would be valid but adds inner-loop complexity. Frequency-based selection is a conservative proxy that avoids motifs present in only one or two samples.</p>
+<h3 id="fragment-length-features">Fragment length features</h3>
+<p>Plasma cfDNA fragments reflect the chromatin packaging state of their cell-of-origin tissue. Nucleosomes protect ~147 bp of DNA; the canonical mono-nucleosomal fragment runs 147–200 bp (peak at ~167 bp). Fragments shorter than ~120 bp derive from nucleosome-free regions (NFRs) occupied by transcription factors or other DNA-binding proteins. The di-nucleosomal peak falls around 280–400 bp.</p>
+<p>Disease alters the tissue-of-origin mixture in plasma cfDNA, shifting the relative abundances of these populations. Five features are computed from the length histogram:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Definition</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fl_mean</code></td>
+<td>Mean fragment length</td>
+<td>Shifts with nucleosomal occupancy</td>
+</tr>
+<tr>
+<td><code>fl_std</code></td>
+<td>Standard deviation of fragment length</td>
+<td>Captures distribution breadth</td>
+</tr>
+<tr>
+<td><code>fl_frac_subnucleosomal</code></td>
+<td>Fraction with length &lt; 120 bp</td>
+<td>NFR / TF footprint abundance</td>
+</tr>
+<tr>
+<td><code>fl_frac_nucleosomal</code></td>
+<td>Fraction with length 120–200 bp</td>
+<td>Mono-nucleosomal occupancy</td>
+</tr>
+<tr>
+<td><code>fl_ratio_mono_di</code></td>
+<td>Count(120–200 bp) / Count(280–400 bp)</td>
+<td>Nucleosomal spacing signal; sensitive to chromatin remodelling</td>
+</tr>
+</tbody>
+</table>
+<p><code>fl_ratio_mono_di</code> is the most diagnostically sensitive single feature in cfDNA liquid biopsy literature: nucleosome repositioning in tumour or disease-affected tissue raises the mono-nucleosomal fraction relative to the di-nucleosomal.</p>
+<h3 id="cpg-methylation-features">CpG methylation features</h3>
+<p>Bisulfite sequencing converts unmethylated cytosines to thymine; Bismark records the per-base methylation call in the <code>XM</code> auxiliary tag. The C++ core accumulates per-genomic-position counts (methylated reads / unmethylated reads) for every covered CpG site. Five summary statistics are derived from this per-site distribution:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Definition</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>methylation_mean</code></td>
+<td>Coverage-weighted mean: <code>Σ(methylated) / Σ(methylated + unmethylated)</code></td>
+<td>Weights high-confidence sites proportionally; more robust than equal-weight mean across sites with heterogeneous depth</td>
+</tr>
+<tr>
+<td><code>methylation_entropy</code></td>
+<td>Mean binary entropy across sites: <code>mean(-p log₂p − (1−p) log₂(1−p))</code></td>
+<td>Epipolymorphism — high entropy at a site means a mix of methylated and unmethylated reads, indicating epigenetic heterogeneity. Elevated epipolymorphism is associated with cancer and neurodegeneration</td>
+</tr>
+<tr>
+<td><code>methylation_frac_high</code></td>
+<td>Fraction of sites with rate &gt; 0.8</td>
+<td>Constitutively methylated loci (e.g. imprinted regions, repeat elements)</td>
+</tr>
+<tr>
+<td><code>methylation_frac_low</code></td>
+<td>Fraction of sites with rate &lt; 0.1</td>
+<td>Constitutively unmethylated loci (promoter CpG islands, active enhancers)</td>
+</tr>
+<tr>
+<td><code>methylation_median</code></td>
+<td>50th percentile of per-site rates</td>
+<td>Robust central tendency; less sensitive to outlier sites than the mean</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why coverage-weighted mean</strong>: a site supported by 2 reads contributes the same to an equal-weight mean as a site supported by 50 reads, but the former has far higher binomial noise. Coverage weighting is equivalent to treating the problem as estimating the methylation rate across all sequenced CpG positions, which is a more natural estimator.</p>
+<p><strong>Why entropy rather than variance</strong>: variance penalises sites near 0 and near 1 equally. Entropy specifically peaks for sites at 0.5 methylation — sites with genuine epigenetic heterogeneity — and falls to zero for sites that are uniformly methylated or unmethylated. This makes it a more targeted measure of epipolymorphism.</p>
+<hr />
+<h2 id="classifier">Classifier</h2>
+<p><strong>Algorithm</strong>: L2-penalised logistic regression (<code>sklearn.linear_model.LogisticRegression</code>).</p>
+<p><strong>Justification</strong>:
+- With n=22 samples and ~27 features, non-linear methods (SVM-RBF, random forest) have more free parameters and are prone to overfitting. L2 logistic regression is the natural choice for a linearly separable, high-dimensional, small-n problem: it has a single hyperparameter (C), is convex, and produces calibrated probabilities.
+- The L2 penalty shrinks all feature weights uniformly toward zero, which is appropriate when the features are z-score standardised and there is no strong prior reason to zero out a subset (as L1 would). In the absence of external feature selection, uniform shrinkage is conservative.
+- Interpretability: the learned weight vector directly indicates which features (motifs, fragment length fractions, methylation statistics) discriminate the two classes, which is useful for biological interpretation.</p>
+<p><strong>Regularisation strength (C)</strong>: selected per fold via inner 5-fold <code>GridSearchCV</code> over <code>C ∈ {0.01, 0.1, 1.0, 10.0}</code>. A fixed C chosen from the full dataset would constitute hyperparameter leakage; tuning inside each fold prevents the test sample from influencing model selection.</p>
+<p><strong>Feature standardisation</strong>: <code>StandardScaler</code> (zero mean, unit variance) is fit on training samples only and applied to both train and test within each fold. This is required because end-motif frequencies (~0.01–0.05) and fragment length ratios (~2–10) are on very different scales; standardisation ensures the L2 penalty treats all features comparably.</p>
+<p><strong>Missing value handling</strong>: <code>np.nan_to_num</code> replaces any NaN (which arises if a feature was absent for a sample, e.g. no CpG coverage) with zero post-scaling. This is equivalent to imputing the training-set mean for the affected sample.</p>
+<hr />
+<h2 id="cross-validation-methodology">Cross-validation methodology</h2>
+<p><strong>Leave-one-out CV (LOO-CV)</strong>: with n=22, standard k-fold CV would leave only ~4 samples per fold for testing, producing noisy estimates. LOO-CV uses n−1 = 21 samples for training in each fold and evaluates on the single held-out sample, yielding 22 test predictions that collectively cover the entire dataset. This is the standard approach for cohorts of this size in cfDNA literature.</p>
+<p><strong>Leakage prevention</strong>: three sources of leakage are guarded against:
+1. <strong>Feature scaling</strong>: <code>StandardScaler</code> fit on training fold only (not whole dataset).
+2. <strong>End-motif selection</strong>: top-N motifs ranked by cumulative frequency on training samples only. The held-out sample's motif profile does not influence which motifs are selected.
+3. <strong>Hyperparameter selection</strong>: C chosen by inner cross-validation on the training fold. The held-out sample is invisible to both feature selection and model selection.</p>
+<p><strong>Inner CV configuration</strong>: <code>StratifiedKFold(n_splits=5)</code> preserves the ALS/CTRL ratio in each inner fold.</p>
+<hr />
+<h2 id="observed-feature-contributions-chr21-cohort">Observed feature contributions (chr21 cohort)</h2>
+<p>Running LOO-CV with methylation features excluded raises accuracy from 0.64 to 0.68 (macro F1 0.62 → 0.66). The per-feature effect sizes confirm the cause:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>ALS mean</th>
+<th>CTRL mean</th>
+<th>Effect size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fl_ratio_mono_di</code></td>
+<td>16.3</td>
+<td>12.7</td>
+<td>0.89</td>
+</tr>
+<tr>
+<td><code>fl_std</code></td>
+<td>57.2</td>
+<td>64.2</td>
+<td>0.61</td>
+</tr>
+<tr>
+<td><code>fl_mean</code></td>
+<td>169.8</td>
+<td>175.6</td>
+<td>0.56</td>
+</tr>
+<tr>
+<td><code>fl_frac_nucleosomal</code></td>
+<td>0.797</td>
+<td>0.775</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td><code>methylation_entropy</code></td>
+<td>0.0187</td>
+<td>0.0187</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td><code>methylation_median</code></td>
+<td>1.000</td>
+<td>1.000</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+<p><code>methylation_median = 1.0</code> for both groups: the majority of covered CpG sites on chr21 are fully methylated in every sample. chr21 is dominated by satellite repeats and constitutive heterochromatin that are uniformly methylated regardless of disease state. Including the methylation features adds five near-zero-signal dimensions to a 27-feature space with n=22, and the regulariser cannot fully suppress them.</p>
+<p>Methylation features are retained in the code because they will carry genuine signal in full-genome runs (differentially methylated regions in promoters, enhancers, imprinted loci) and add no computational overhead at extraction time.</p>
+<hr />
+<h2 id="known-limitations">Known limitations</h2>
+<ul>
+<li><strong>Chr21 only</strong>: chromosome 21 is ~1.5% of the autosomal genome and contains no ALS-associated risk loci of known functional significance to cfDNA. The signal is likely dominated by global cfDNA biology rather than ALS-specific changes. Extending to the full genome would substantially increase discriminative power.</li>
+<li><strong>Sample size</strong>: n=22 is too small to estimate generalisation error reliably regardless of CV strategy. LOO-CV is approximately unbiased but has high variance. Results should be interpreted as a proof-of-concept, not a clinical estimate.</li>
+<li><strong>Bisulfite-specific caveats</strong>: bisulfite conversion (C→T) collapses the cytosine channel, making end-motif distributions T/A-rich and relatively uniform across samples. This reduces the effective information content of the end-motif features compared to non-bisulfite cfDNA assays.</li>
+<li><strong>Fragment length via TLEN</strong>: fragment length is derived from the <code>TLEN</code> (isize) field set by Bismark. For properly paired reads on the same chromosome (enforced by the flag filter), this is reliable, but soft-clipping at read ends can cause isize to overestimate the true insert size by a few bases. A more precise estimate would use <code>PNEXT + cigar_ref_length(MC tag) − POS</code>.</li>
+</ul>
+<hr />
+<h2 id="implementation">Implementation</h2>
+<p>The full LOO-CV implementation, annotated:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">cfanalysis/classify.py — run_loo_cv()</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#__codelineno-0-65">65</a></span>
+<span class="normal"><a href="#__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#__codelineno-0-70">70</a></span>
+<span class="normal"><a href="#__codelineno-0-71">71</a></span>
+<span class="normal"><a href="#__codelineno-0-72">72</a></span>
+<span class="normal"><a href="#__codelineno-0-73">73</a></span>
+<span class="normal"><a href="#__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#__codelineno-0-77">77</a></span>
+<span class="normal"><a href="#__codelineno-0-78">78</a></span>
+<span class="normal"><a href="#__codelineno-0-79">79</a></span>
+<span class="normal"><a href="#__codelineno-0-80">80</a></span>
+<span class="normal"><a href="#__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#__codelineno-0-85">85</a></span>
+<span class="normal"><a href="#__codelineno-0-86">86</a></span>
+<span class="normal"><a href="#__codelineno-0-87">87</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_loo_cv</span><span class="p">(</span><span class="n">samples</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Sample</span><span class="p">],</span> <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="n">predictions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="n">all_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="n">inner_cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]}</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="ow">in</span> <span class="n">LeaveOneOut</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">))):</span> <span class="c1"># (3)!</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="n">train_samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_idx</span><span class="p">]</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="n">test_samples</span>  <span class="o">=</span> <span class="p">[</span><span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">]</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="n">motifs</span> <span class="o">=</span> <span class="n">_select_top_motifs</span><span class="p">(</span><span class="n">train_samples</span><span class="p">,</span> <span class="n">top_n</span><span class="p">)</span> <span class="c1"># (4)!</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">build_feature_matrix</span><span class="p">(</span><span class="n">train_samples</span><span class="p">,</span> <span class="n">motifs</span><span class="p">)</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="n">X_test</span><span class="p">,</span>  <span class="n">_</span><span class="p">,</span>       <span class="n">_</span> <span class="o">=</span> <span class="n">build_feature_matrix</span><span class="p">(</span><span class="n">test_samples</span><span class="p">,</span>  <span class="n">motifs</span><span class="p">)</span> <span class="c1"># (5)!</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="n">X_train_s</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="c1"># (6)!</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="n">X_test_s</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">X_train_s</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">X_test_s</span><span class="p">,</span>  <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a>            <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a>            <span class="n">param_grid</span><span class="p">,</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a>            <span class="n">cv</span><span class="o">=</span><span class="n">inner_cv</span><span class="p">,</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a>            <span class="n">refit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="p">)</span> <span class="c1"># (7)!</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_s</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_s</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="s2">&quot;predictions&quot;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">,</span>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="n">all_labels</span><span class="p">,</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="s2">&quot;report&quot;</span><span class="p">:</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">all_labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">),</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<ol>
+<li>All selection, scaling, and hyperparameter tuning happens inside this function — the caller never sees individual folds.</li>
+<li>Inner 5-fold stratified CV for hyperparameter selection. <code>shuffle=True</code> with a fixed seed ensures reproducibility while breaking any ordering in the sample list.</li>
+<li>Outer LOO loop: 22 iterations, each holding out exactly one sample. <code>LeaveOneOut().split()</code> yields index arrays, not data — keeping the original list intact for the inner selection step.</li>
+<li><strong>Leakage guard 1</strong>: motif selection runs on <code>train_samples</code> only. The held-out sample's motif profile cannot influence which 4-mers enter the feature matrix.</li>
+<li>The test matrix is built using the same <code>motifs</code> list as the training matrix. The held-out sample's values are evaluated against features chosen without seeing it.</li>
+<li><strong>Leakage guard 2</strong>: <code>fit_transform()</code> on training data; <code>transform()</code> only on the test sample. The held-out mean and variance do not influence scaling parameters.</li>
+<li><strong>Leakage guard 3</strong>: <code>GridSearchCV</code> selects <code>C</code> by inner CV on training data only. The held-out sample is invisible to model selection as well as feature selection and scaling.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
