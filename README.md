@@ -2,6 +2,8 @@
 
 cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples using bisulfite-sequenced plasma BAMs.
 
+FULL GUIDE AND DOCUMENTATION AVAILABLE [**HERE**](https://blex-max.github.io/als-challenge/)!
+
 22-sample chr21 cohort · 266 features · **0.64 accuracy / 0.62 macro F1** under LOO-CV.
 
 ---
