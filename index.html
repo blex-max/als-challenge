@@ -318,28 +318,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-at-a-glance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline at a glance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#engineering-highlights" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -355,6 +333,17 @@
     <span class="md-ellipsis">
       
         Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
       
     </span>
   </a>
@@ -748,23 +737,18 @@
 
 
 <h1 id="als-cfdna-analysis">ALS cfDNA Analysis</h1>
-<p>A cfDNA feature-extraction and classification pipeline for identifying putative ALS patients using bisulfite-sequenced plasma cell-free DNA.</p>
-<hr />
-<h2 id="background">Background</h2>
-<p>Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it can serve as a liquid biopsy for a range of conditions — including neurodegenerative diseases such as ALS.</p>
-<p>This tool addresses the question: can we distinguish ALS patients from healthy controls using features extracted from bisulfite-sequenced plasma cfDNA BAM files?</p>
-<hr />
-<h2 id="pipeline-at-a-glance">Pipeline at a glance</h2>
-<p>The C++ core (<code>cfextract</code>) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact <code>RegionMetrics</code> boundary object. The Python layer (<code>cfclassify</code>) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.</p>
+<p>A cfDNA feature-extraction and exploratory classification pipeline for distinguishing ALS and control samples in a small research cohort using bisulfite-sequenced plasma cell-free DNA.</p>
+<p>A high-performance C++ core (<code>cfextract</code>) handles BAM I/O via htslib and accumulates per-read statistics (end motifs, fragment lengths, and CpG methylation) into a compact <code>RegionMetrics</code> boundary object. A Python modelling layer using sklearn (<code>cfclassify</code>) converts that boundary object to a flat feature vector and trains or applies an L2 logistic regression classifier. On the chr21 cohort of 22 bisulfite-sequenced plasma BAMs (12 ALS, 10 CTRL), the pipeline extracts 266 features per sample and reaches 0.64 accuracy under LOO-CV.</p>
+<p>Cell-free DNA (cfDNA) in blood plasma is shed by apoptotic and necrotic cells throughout the body. Because cfDNA carries epigenetic and fragmentation signatures from its tissue of origin, it is being investigated as a liquid-biopsy substrate for neurodegenerative disease, including ALS.</p>
 <hr />
 <h2 id="engineering-highlights">Engineering highlights</h2>
 <ul>
-<li><strong>CI on every push</strong> — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment.</li>
+<li><strong>CI on every push</strong> — a series of code analysis tools, and unit tests, run on every commit; failures surface in GitHub Checks, so regressions and bugs are caught before they reach a production environment. Analysis includes code complexity/maintainability assessment.</li>
 <li><strong>Portable container</strong> — pre-built image available via package registry (<code>docker pull ghcr.io/blex-max/als-challenge:latest</code>) eliminates end-user build issues; the full pipeline runs reproducibly on any machine with a single pull.</li>
 <li><strong>Language-agnostic extraction core</strong> — core feature extraction and file I/O are handled in performant cpp. Python bindings are provided out of the box, but analysts can drive analysis from Python, R, Julia, or any language for which bindings can be made, without having to reimplement key functionality.</li>
 <li><strong>Memory scales with region size only, not read depth</strong> — peak footprint is bounded by the number of unique CpG sites in the target region, not read count; a deeply sequenced chr21 BAM uses the same memory as a shallow one, keeping extraction tractable on standard hardware.</li>
 <li><strong>Fast extraction</strong> — <code>cfextract.extract_features()</code> completes chr21 extraction in <strong>0.10 ± 0.00 s</strong> wall time, 5.9 ± 0.3 MB peak RSS across 22 chr21 BAMs (10 M reads per sample, Apple M-series, 3 repeats; reproduce with <code>python scripts/bench_extract.py --repeat 3</code>).</li>
-<li><strong>Deployable model</strong> — the <code>train</code> subcommand fits and persists a final model bundle; <code>predict</code> applies it to new samples without retraining, enabling deployment beyond the training cohort.</li>
+<li><strong>Deployable model</strong> — the <code>train</code> subcommand fits and persists a final model bundle; <code>predict</code> applies it to new samples without retraining, enabling use and testing beyond the training cohort.</li>
 <li><strong>Incremental training</strong> — the <code>update</code> subcommand appends new labelled samples and retrains from the full feature cache, so deployed models stay current as cohorts grow.</li>
 <li><strong>Contributor guardrails</strong> — <a href="https://github.com/blex-max/als-challenge/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> documents quality standards, C++ style rules, and extension patterns for both human and AI contributors. The installation process also autogenerates type stubs, so the package comes with first-class type hinting support when used in Python.</li>
 </ul>
@@ -815,21 +799,35 @@
 <tbody>
 <tr>
 <td><strong>End-motif frequencies</strong></td>
-<td>Nuclease preference (DNase I / CAD balance shifts in disease)</td>
+<td>Differential appearance of certain k-mers at fragment ends</td>
 </tr>
 <tr>
 <td><strong>Fragment length</strong></td>
-<td>Nucleosomal occupancy and chromatin remodelling</td>
+<td>Length distribution of cfDNA fragments</td>
 </tr>
 <tr>
 <td><strong>CpG methylation</strong></td>
-<td>Differential methylation at tissue-specific loci</td>
+<td>Differential methylation between samples</td>
 </tr>
 </tbody>
 </table>
-<!-- TODO this probably needs a citation - is the Li paper sufficient that we have in scratch/? -->
-<p>cfDNA fragments are generated by nuclease cleavage; different nucleases prefer different DNA sequences at the cut site (the "end motif"). Fragment length reflects chromatin packaging: nucleosomes protect small stretches of DNA, creating characteristic peaks at ~167 bp (mono-nucleosomal) and ~280–400 bp (di-nucleosomal).</p>
 <p>See the <a href="results/">Results</a> page for plots, per-sample feature data, and classification metrics from the chr21 test cohort.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p>Caggiano C, Celona B, Garton F, et al. <em>Comprehensive cell type decomposition of circulating cell-free DNA with CelFiE</em>. Nature Communications. 2021;12:2717. https://doi.org/10.1038/s41467-021-22901-x</p>
+</li>
+<li>
+<p>Snyder MW, Kircher M, Hill AJ, Daza RM, Shendure J. <em>Cell-free DNA comprises an in vivo nucleosome footprint that informs its tissues-of-origin</em>. Cell. 2016;164(1-2):57–68. https://doi.org/10.1016/j.cell.2015.11.050</p>
+</li>
+<li>
+<p>Ding SC, Lo YMD. <em>Cell-Free DNA Fragmentomics in Liquid Biopsy</em>. Diagnostics. 2022;12(4):978. https://doi.org/10.3390/diagnostics12040978</p>
+</li>
+<li>
+<p>Moss J, Magenheim J, Neiman D, et al. <em>Comprehensive human cell-type methylation atlas reveals origins of circulating cell-free DNA in health and disease</em>. Nature Communications. 2018;9:5068. https://doi.org/10.1038/s41467-018-07466-6</p>
+</li>
+</ol>
 
 
 
